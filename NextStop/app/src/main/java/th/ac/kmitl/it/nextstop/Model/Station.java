@@ -8,10 +8,10 @@ public class Station {
     private String name;
     private String id;
     private String connection;
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
 
-    public Station(String name, String id, String connection ,float latitude, float longitude){
+    public Station(String name, String id, String connection ,double latitude, double longitude){
         this.name = name;
         this.id = id;
         this.connection = connection;
@@ -31,11 +31,11 @@ public class Station {
         return connection;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 }
