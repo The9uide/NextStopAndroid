@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import th.ac.kmitl.it.nextstop.R;
+import th.ac.kmitl.it.nextstop.databinding.StationrowlayoutBinding;
 
 /**
  * Created by The9uide on 25-Mar-17.
@@ -17,26 +18,29 @@ import th.ac.kmitl.it.nextstop.R;
 public class StationAdapter extends ArrayAdapter<String> {
     private final Context context;
     private final String[] values;
+    StationrowlayoutBinding binding;
 
     public StationAdapter(Context context, String[] values) {
         super(context, R.layout.stationrowlayout, values);
         this.context = context;
         this.values = values;
+
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.stationrowlayout, parent, false);
-        TextView textView = (TextView) rowView.findViewById(R.id.icon);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        textView.setText(values[position]);
+        binding = StationrowlayoutBinding.inflate(inflater,parent,false);
+//        View rowView = inflater.inflate(R.layout.stationrowlayout, parent, false);
+//        TextView textView = (TextView) rowView.findViewById(R.id.icon);
+//        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+//        textView.setText(values[position]);
         // Change the icon for Windows and iPhone
         String s = values[position];
 
 
-        return rowView;
+        return binding.getRoot();
     }
 
 }
