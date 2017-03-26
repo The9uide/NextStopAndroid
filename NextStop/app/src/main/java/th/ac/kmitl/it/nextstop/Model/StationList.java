@@ -7,6 +7,7 @@ package th.ac.kmitl.it.nextstop.Model;
 public class StationList {
     private static StationList instance = null;
     Station[] allStation;
+
     protected StationList() {
         allStation = new Station[8];
         allStation[0] = new Station("สุวรรณภูมิ","A1",null,13.698090,100.752265);
@@ -23,7 +24,6 @@ public class StationList {
     public static StationList getStationList() {
         if(instance == null) {
             instance = new StationList();
-
         }
         return instance;
     }
