@@ -1,0 +1,14 @@
+https://maps.googleapis.com/maps/api/directions/json?
+origin=place_id:ChIJA6WstXVnHTERbxfEINs1uOU
+&destination=place_id:ChIJrdZqA8qe4jAR2xlR_LDMr54
+&mode=transit
+&transit_mode=subway
+&key=AIzaSyDJeJe29vIwfDDZ75g1MCtPWVZklhukzQY
+============================================
+https://maps.googleapis.com/maps/api/directions/json?
+origin=13.697904,100.752115
+&destination=13.755151,100.541822
+&mode=transit
+&transit_mode=subway
+&key=AIzaSyDJeJe29vIwfDDZ75g1MCtPWVZklhukzQY
+
