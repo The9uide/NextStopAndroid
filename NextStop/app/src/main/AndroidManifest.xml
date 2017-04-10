@@ -10,17 +10,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBfrY2WnKCRnkCGVHBHHjHZy8zsnnS2_CI"/>
+            android:value="AIzaSyBfrY2WnKCRnkCGVHBHHjHZy8zsnnS2_CI" />
 
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.LandingActivity"></activity>
     </application>
 
 </manifest>
