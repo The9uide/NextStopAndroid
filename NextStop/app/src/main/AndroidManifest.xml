@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,20 +16,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBfrY2WnKCRnkCGVHBHHjHZy8zsnnS2_CI" />
 
-        <activity android:name=".Activity.MainActivity"></activity>
-
+        <activity android:name=".Activity.MainActivity" />
         <activity
             android:name=".Activity.LandingActivity"
             android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activity.DepartSelectActivity">
-
-        </activity>
+        <activity android:name=".Activity.DepartSelectActivity"></activity>
+        <activity android:name=".Activity.DestinationActivity"></activity>
     </application>
 
 </manifest>

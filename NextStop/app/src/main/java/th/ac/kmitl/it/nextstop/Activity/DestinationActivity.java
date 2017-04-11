@@ -6,16 +6,17 @@ import android.os.Bundle;
 
 import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.R;
-import th.ac.kmitl.it.nextstop.databinding.ActivityDepartSelectBinding;
+import th.ac.kmitl.it.nextstop.databinding.ActivityDestinationBinding;
 
-public class DepartSelectActivity extends AppCompatActivity {
+public class DestinationActivity extends AppCompatActivity {
 
-    ActivityDepartSelectBinding binding;
-
+    ActivityDestinationBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_depart_select);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_destination);
         binding.setViewModel(StationList.getStations());
     }
+
+
 }

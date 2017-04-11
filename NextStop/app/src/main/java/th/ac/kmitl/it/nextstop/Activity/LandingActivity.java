@@ -1,6 +1,7 @@
 package th.ac.kmitl.it.nextstop.Activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
@@ -22,7 +23,7 @@ import th.ac.kmitl.it.nextstop.Model.StationManager;
 import th.ac.kmitl.it.nextstop.R;
 import th.ac.kmitl.it.nextstop.databinding.ActivityLandingBinding;
 
-public class LandingActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
+public class LandingActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     ActivityLandingBinding binding;
     private GoogleApiClient mGoogleApiClient;
@@ -37,7 +38,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSION_ACCESS_COARSE_LOCATION);
         }
 
@@ -85,19 +86,19 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     public void onConnected(Bundle bundle) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        Log.i(LandingActivity.class.getSimpleName(),mLastLocation.toString());
+        Log.i(LandingActivity.class.getSimpleName(), mLastLocation.toString());
         if (mLastLocation != null) {
             binding.confirmStation.setText(String.valueOf(mLastLocation.getLatitude()));
-            Log.i(LandingActivity.class.getSimpleName(),String.valueOf(mLastLocation.getLongitude())+ ":" +String.valueOf(mLastLocation.getLatitude()));
-            setUpCurrentLocation(mLastLocation.getLatitude(),mLastLocation.getLongitude());
-        }else{
+            Log.i(LandingActivity.class.getSimpleName(), String.valueOf(mLastLocation.getLongitude()) + ":" + String.valueOf(mLastLocation.getLatitude()));
+            setUpCurrentLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        } else {
             binding.confirmStation.setText("Cannot get location");
         }
     }
 
-    public void setUpCurrentLocation(double latitude, double longitude){
-        stationManager = new StationManager(latitude,longitude);
-        Station currentStation  = stationManager.getCurrentStation();
+    public void setUpCurrentLocation(double latitude, double longitude) {
+        stationManager = new StationManager(latitude, longitude);
+        Station currentStation = stationManager.getCurrentStation();
         binding.confirmStation.setText(currentStation.getName());
     }
 
@@ -114,10 +115,12 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (binding.yesButton == view){
-                binding.confirmStation.setText("Yes");
-            }else if (binding.noButton == view){
-                binding.confirmStation.setText("No");
+            if (binding.yesButton == view) {
+                Intent intent = new Intent(LandingActivity.this, MainActivity.class);
+                startActivity(intent);
+            } else if (binding.noButton == view) {
+                Intent intent = new Intent(LandingActivity.this, DepartSelectActivity.class);
+                startActivity(intent);
             }
         }
     };
