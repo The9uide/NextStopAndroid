@@ -6,23 +6,37 @@
         <import type="th.ac.kmitl.it.nextstop.R" />
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/yesButton"
+            android:layout_width="70dp"
+            android:layout_height="36dp"
+            android:text="ใช่"
+            android:layout_marginStart="62dp"
+            android:layout_marginBottom="170dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
+        <Button
+            android:id="@+id/noButton"
+            android:layout_width="70dp"
+            android:layout_height="36dp"
+            android:text="ใม่ใช่"
+            android:layout_alignBaseline="@+id/yesButton"
+            android:layout_alignBottom="@+id/yesButton"
+            android:layout_centerHorizontal="true" />
+
         <TextView
-            android:id="@+id/tvHello"
+            android:id="@+id/confirmStation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello World"/>
-        <TextView
-            android:id="@+id/la"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/lo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="50px"
+            android:text="Hello World"
+            android:layout_above="@+id/noButton"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="59dp" />
+    </RelativeLayout>
 </layout>
 

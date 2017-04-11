@@ -16,9 +16,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import th.ac.kmitl.it.nextstop.Model.Station;
+import th.ac.kmitl.it.nextstop.Model.StationManager;
 import th.ac.kmitl.it.nextstop.R;
 import th.ac.kmitl.it.nextstop.databinding.ActivityLandingBinding;
-import th.ac.kmitl.it.nextstop.databinding.ActivityMainBinding;
 
 public class LandingActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
 
@@ -26,14 +27,12 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
+    private StationManager stationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_landing);
-        binding.tvHello.setText("HHHHHHHHHHHH\nHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-        binding.la.setText("Waiting get location");
-        binding.lo.setText("Waiting get location");
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -48,6 +47,8 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
                     .addApi(LocationServices.API)
                     .build();
         }
+
+
 
 
     }
@@ -82,14 +83,22 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     public void onConnected(Bundle bundle) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-//        Log.i(LandingActivity.class.getSimpleName(),mLastLocation.toString());
+        Log.i(LandingActivity.class.getSimpleName(),mLastLocation.toString());
         if (mLastLocation != null) {
             binding.tvHello.setText(String.valueOf(mLastLocation.getLatitude()));
             binding.lo.setText(String.valueOf(mLastLocation.getLongitude()));
+            Log.i(LandingActivity.class.getSimpleName(),String.valueOf(mLastLocation.getLongitude())+ ":" +String.valueOf(mLastLocation.getLatitude()));
+            setUpCurrentLocation(mLastLocation.getLatitude(),mLastLocation.getLongitude());
         }else{
             binding.tvHello.setText("Cannot get location");
             binding.lo.setText("Cannot get location");
         }
+    }
+
+    public void setUpCurrentLocation(double latitude, double longitude){
+        stationManager = new StationManager(latitude,longitude);
+        Station currentStation  = stationManager.getCurrentStation();
+        binding.tvHello.setText(currentStation.getName());
     }
 
     @Override

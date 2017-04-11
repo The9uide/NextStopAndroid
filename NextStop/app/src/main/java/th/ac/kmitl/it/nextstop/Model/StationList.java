@@ -14,7 +14,6 @@ import th.ac.kmitl.it.nextstop.R;
 public class StationList {
     private static StationList stations = null;
     public final ItemBinding<Station> itemBinding = ItemBinding.of(BR.item, R.layout.stationrowlayout);
-    public Station[] allStation;
     public final ObservableList<Station> items = new ObservableArrayList<>();
 
     protected StationList() {
