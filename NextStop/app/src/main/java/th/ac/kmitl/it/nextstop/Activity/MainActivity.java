@@ -1,12 +1,13 @@
 package th.ac.kmitl.it.nextstop.Activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 
 import th.ac.kmitl.it.nextstop.Model.JSONAsyncTask;
-import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.R;
 import th.ac.kmitl.it.nextstop.databinding.ActivityMainBinding;
 
@@ -14,6 +15,7 @@ import th.ac.kmitl.it.nextstop.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    String departStation;
     String url = "https://maps.googleapis.com/maps/api/directions/json?\n" +
             "origin=13.697904,100.752115\n" +
             "&destination=13.755151,100.541822\n" +
@@ -26,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        Intent intent = getIntent();
+        departStation = intent.getStringExtra("station");
+
+        initInstances();
         new JSONAsyncTask().execute("https://maps.googleapis.com/maps/api/directions/json?" +
                 "origin=13.697904,100.752115" +
                 "&destination=13.755151,100.541822" +
@@ -34,4 +40,24 @@ public class MainActivity extends AppCompatActivity {
                 "&key=AIzaSyDJeJe29vIwfDDZ75g1MCtPWVZklhukzQY");
 
     }
+
+    private void initInstances() {
+        binding.departButton.setText(departStation+ " ▼");
+        binding.departButton.setOnClickListener(listener);
+        binding.destinationButtion.setOnClickListener(listener);
+    }
+
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(binding.departButton == view){
+                Intent intent = new Intent(MainActivity.this,DepartSelectActivity.class);
+                startActivity(intent);
+            }else if(binding.destinationButtion == view){
+                Intent intent = new Intent(MainActivity.this,DestinationActivity.class);
+                intent.putExtra("departStation",departStation);
+                startActivity(intent);
+            }
+        }
+    };
 }

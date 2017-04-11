@@ -47,12 +47,11 @@
                         android:textColor="@color/white"
                         android:textSize="14.0sp" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/departButton"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background=""
                         android:gravity="top"
                         android:text="ลาดกระบัง ▼"
                         android:textColor="@color/white"
