@@ -1,9 +1,16 @@
 package th.ac.kmitl.it.nextstop.Activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -18,6 +25,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     ActivityLandingBinding binding;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
+    private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,12 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
         binding.la.setText("Waiting get location");
         binding.lo.setText("Waiting get location");
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
+                    PERMISSION_ACCESS_COARSE_LOCATION);
+        }
+
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -35,6 +49,22 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
                     .build();
         }
 
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSION_ACCESS_COARSE_LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // All good!
+                } else {
+                    Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+        }
     }
 
     @Override
@@ -52,11 +82,12 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     public void onConnected(Bundle bundle) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+//        Log.i(LandingActivity.class.getSimpleName(),mLastLocation.toString());
         if (mLastLocation != null) {
-            binding.la.setText(String.valueOf(mLastLocation.getLatitude()));
+            binding.tvHello.setText(String.valueOf(mLastLocation.getLatitude()));
             binding.lo.setText(String.valueOf(mLastLocation.getLongitude()));
         }else{
-            binding.la.setText("Cannot get location");
+            binding.tvHello.setText("Cannot get location");
             binding.lo.setText("Cannot get location");
         }
     }
@@ -68,6 +99,6 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        Log.i(LandingActivity.class.getSimpleName(), "Can't connect to Google Play Services!");
     }
 }
