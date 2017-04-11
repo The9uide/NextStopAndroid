@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -48,7 +49,8 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
                     .build();
         }
 
-
+        binding.yesButton.setOnClickListener(listener);
+        binding.noButton.setOnClickListener(listener);
 
 
     }
@@ -85,20 +87,18 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Log.i(LandingActivity.class.getSimpleName(),mLastLocation.toString());
         if (mLastLocation != null) {
-            binding.tvHello.setText(String.valueOf(mLastLocation.getLatitude()));
-            binding.lo.setText(String.valueOf(mLastLocation.getLongitude()));
+            binding.confirmStation.setText(String.valueOf(mLastLocation.getLatitude()));
             Log.i(LandingActivity.class.getSimpleName(),String.valueOf(mLastLocation.getLongitude())+ ":" +String.valueOf(mLastLocation.getLatitude()));
             setUpCurrentLocation(mLastLocation.getLatitude(),mLastLocation.getLongitude());
         }else{
-            binding.tvHello.setText("Cannot get location");
-            binding.lo.setText("Cannot get location");
+            binding.confirmStation.setText("Cannot get location");
         }
     }
 
     public void setUpCurrentLocation(double latitude, double longitude){
         stationManager = new StationManager(latitude,longitude);
         Station currentStation  = stationManager.getCurrentStation();
-        binding.tvHello.setText(currentStation.getName());
+        binding.confirmStation.setText(currentStation.getName());
     }
 
     @Override
@@ -110,4 +110,15 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.i(LandingActivity.class.getSimpleName(), "Can't connect to Google Play Services!");
     }
+
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (binding.yesButton == view){
+                binding.confirmStation.setText("Yes");
+            }else if (binding.noButton == view){
+                binding.confirmStation.setText("No");
+            }
+        }
+    };
 }
