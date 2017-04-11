@@ -100,7 +100,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     public void setUpCurrentLocation(double latitude, double longitude) {
         stationManager = new StationManager(latitude, longitude);
         currentStation = stationManager.getCurrentStation();
-        binding.confirmStation.setText(currentStation.getName());
+        binding.confirmStation.setText("คุณอยู่สถานี" + currentStation.getName() + "ใช่หรือไม่ ?");
     }
 
     @Override

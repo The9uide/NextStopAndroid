@@ -8,39 +8,60 @@
 
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
     </data>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/dodger_blue">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="29dp">
 
-        <Button
-            android:id="@+id/yesButton"
-            android:layout_width="70dp"
-            android:layout_height="36dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="170dp"
-            android:layout_marginStart="62dp"
-            android:text="ใช่" />
-
-        <Button
-            android:id="@+id/noButton"
-            android:layout_width="70dp"
-            android:layout_height="36dp"
-            android:layout_alignBaseline="@+id/yesButton"
-            android:layout_alignBottom="@+id/yesButton"
-            android:layout_centerHorizontal="true"
-            android:text="ใม่ใช่" />
-
+        <ImageView
+            android:layout_width="80.5dp"
+            android:layout_height="133.0dp"
+            android:src="@drawable/iconlandingpage"
+            android:layout_weight="1"/>
         <TextView
             android:id="@+id/confirmStation"
             android:layout_width="match_parent"
-            android:layout_height="50px"
-            android:layout_above="@+id/noButton"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="59dp"
-            android:text="Hello World" />
+            android:layout_height="wrap_content"
+            android:text="คุณอยู่ที่สถานีลาดกระบังใช่หรือไม่ ?"
+            android:textColor="@color/white"
+            android:textSize="27.0sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_marginTop="36dp">
+
+            <Button
+                android:id="@+id/yesButton"
+                android:layout_width="86dp"
+                android:layout_height="48dp"
+                android:text="ใช่"
+                android:textSize="18.0sp"
+                android:textColor="@color/white"
+                android:background="@color/chrome_yellow"
+                android:elevation="10dp"/>
+
+            <TextView
+                android:id="@+id/noButton"
+                android:layout_width="86dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="ใม่ใช่"
+                android:textSize="18.0sp"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
     </RelativeLayout>
 </layout>
 
