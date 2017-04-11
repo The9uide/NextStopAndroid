@@ -3,15 +3,112 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="th.ac.kmitl.it.nextstop.R" />
+
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
-        <variable name="viewModel" type="th.ac.kmitl.it.nextstop.Model.StationList"/>
     </data>
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:items="@{viewModel.items}"
-        app:itemBinding="@{viewModel.itemBinding}"/>
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/dodger_blue"
+            android:elevation="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="80.0dp"
+                    android:layout_height="40.0dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/iconstartstation" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:alpha="0.7"
+                        android:gravity="bottom"
+                        android:text="ตอนนี้คุณอยู่สถานี (ɔ◔‿◔)ɔ ♥"
+                        android:textColor="@color/white"
+                        android:textSize="14.0sp" />
+
+                    <Button
+                        android:id="@+id/departButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background=""
+                        android:gravity="top"
+                        android:text="ลาดกระบัง ▼"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="123.0dp"
+                android:layout_height="111.5dp"
+                android:layout_gravity="center"
+                android:elevation="4dp"
+                android:src="@drawable/icondestinationemptystage" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:alpha="0.38"
+                android:text="คุณต้องการลงที่สถานีใด ?"
+                android:textColor="@color/black"
+                android:textSize="24.0sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:alpha="0.38"
+                android:gravity="center"
+                android:text="เราจะแจ้งเตือนเมื่อถึงสถานีปลายทางของคุณ"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/destinationButtion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/chrome_yellow"
+                android:elevation="10dp"
+                android:padding="16dp"
+                android:text="เลือกสถานีปลายทาง"
+                android:textColor="@color/white"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </layout>

@@ -30,6 +30,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     private Location mLastLocation;
     private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
     private StationManager stationManager;
+    private Station currentStation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
 
     public void setUpCurrentLocation(double latitude, double longitude) {
         stationManager = new StationManager(latitude, longitude);
-        Station currentStation = stationManager.getCurrentStation();
+        currentStation = stationManager.getCurrentStation();
         binding.confirmStation.setText(currentStation.getName());
     }
 
@@ -117,6 +118,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
         public void onClick(View view) {
             if (binding.yesButton == view) {
                 Intent intent = new Intent(LandingActivity.this, MainActivity.class);
+                intent.putExtra("station",currentStation.getName());
                 startActivity(intent);
             } else if (binding.noButton == view) {
                 Intent intent = new Intent(LandingActivity.this, DepartSelectActivity.class);

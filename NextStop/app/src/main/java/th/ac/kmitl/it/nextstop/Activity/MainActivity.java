@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        binding.setViewModel(StationList.getStations());
-
         new JSONAsyncTask().execute("https://maps.googleapis.com/maps/api/directions/json?" +
                 "origin=13.697904,100.752115" +
                 "&destination=13.755151,100.541822" +
