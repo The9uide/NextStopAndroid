@@ -21,6 +21,10 @@ public class DestinationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initInstances();
+    }
+
+    private void initInstances(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_destination);
         binding.setViewModel(StationList.getStations());
 
@@ -52,6 +56,4 @@ public class DestinationActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

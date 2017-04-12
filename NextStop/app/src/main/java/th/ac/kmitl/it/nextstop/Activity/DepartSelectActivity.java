@@ -19,6 +19,10 @@ public class DepartSelectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initInstances();
+    }
+
+    private void initInstances(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_depart_select);
         binding.setViewModel(StationList.getStations());
         Intent intent = getIntent();
@@ -48,7 +52,5 @@ public class DepartSelectActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 }

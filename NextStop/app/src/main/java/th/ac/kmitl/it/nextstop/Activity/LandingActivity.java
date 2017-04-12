@@ -35,6 +35,10 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initInstances();
+    }
+
+    private void initInstances() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_landing);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -53,8 +57,6 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
 
         binding.yesButton.setOnClickListener(listener);
         binding.noButton.setOnClickListener(listener);
-
-
     }
 
     @Override
@@ -118,11 +120,11 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
         public void onClick(View view) {
             if (binding.yesButton == view) {
                 Intent intent = new Intent(LandingActivity.this, MainActivity.class);
-                intent.putExtra("station",currentStation.getName());
+                intent.putExtra("station", currentStation.getName());
                 startActivity(intent);
             } else if (binding.noButton == view) {
                 Intent intent = new Intent(LandingActivity.this, DepartSelectActivity.class);
-                intent.putExtra("first",true);
+                intent.putExtra("first", true);
                 startActivity(intent);
             }
         }
