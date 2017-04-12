@@ -1,9 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="th.ac.kmitl.it.nextstop.Activity.TravelActivity">
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+
+        <import type="th.ac.kmitl.it.nextstop.R" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_smokeF7"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/dodger_blue"
+            android:elevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="80.0dp"
+                    android:layout_height="40.0dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/iconstartstation" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:alpha="0.7"
+                        android:gravity="bottom"
+                        android:text="ตอนนี้คุณอยู่สถานี (ɔ◔‿◔)ɔ ♥"
+                        android:textColor="@color/white"
+                        android:textSize="14.0sp" />
+
+                    <TextView
+                        android:id="@+id/departButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="top"
+                        android:text="กรุณาเลือกสถานีต้นทาง ▼"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8.5dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:elevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="193.5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/makkasan" />
+
+                <TextView
+                    android:id="@+id/nameStation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ชื่อสถานี"
+                    android:textSize="24.0sp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/black"
+                    android:alpha="0.87"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="สถานีปลายทาง"
+                    android:layout_marginLeft="24.0dp"
+                    android:layout_marginTop="7dp"
+                    android:alpha="0.38"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/startButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="160dp"
+                fab:fab_colorNormal="@color/chrome_yellow"
+                fab:fab_colorPressed="@color/orange_peel"
+                fab:fab_icon="@drawable/iconstartnavigation" />
+
+            <TextView
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:text="เริ่ม"
+                android:gravity="center"
+                android:textColor="@color/chrome_yellow"
+                android:textSize="16.0sp"
+                android:layout_below="@id/startButton"
+                android:layout_alignLeft="@id/startButton"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
