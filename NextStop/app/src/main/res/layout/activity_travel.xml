@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="th.ac.kmitl.it.nextstop.R" />
 
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <variable
+            name="viewModel"
+            type="th.ac.kmitl.it.nextstop.Model.StationList" />
+        
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_smokeF7"
+        android:background="@color/white_smokeF5"
         android:orientation="vertical">
 
         <LinearLayout
@@ -62,68 +66,87 @@
             </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="8.5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:elevation="4dp">
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <ImageView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="193.5dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/makkasan" />
-
-                <TextView
-                    android:id="@+id/nameStation"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ชื่อสถานี"
-                    android:textSize="24.0sp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="24dp"
-                    android:textColor="@color/black"
-                    android:alpha="0.87"/>
+                    android:layout_margin="8.5dp"
+                    android:background="@color/white"
+                    android:elevation="4dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="193.5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/makkasan" />
+
+                        <TextView
+                            android:id="@+id/nameStation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="24dp"
+                            android:alpha="0.87"
+                            android:text="ชื่อสถานี"
+                            android:textColor="@color/black"
+                            android:textSize="24.0sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="24.0dp"
+                            android:layout_marginTop="7dp"
+                            android:alpha="0.38"
+                            android:text="สถานีปลายทาง"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/routeListView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="สถานีปลายทาง"
-                    android:layout_marginLeft="24.0dp"
-                    android:layout_marginTop="7dp"
-                    android:alpha="0.38"
-                    android:textColor="@color/black"/>
+                    android:layout_marginBottom="8.5dp"
+                    android:layout_marginLeft="8.5dp"
+                    android:layout_marginRight="8.5dp"
+                    android:elevation="6dp"
+                    app:itemBinding="@{viewModel.itemBinding}"
+                    app:items="@{viewModel.items}"></ListView>
             </LinearLayout>
+        </ScrollView>
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/startButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="160dp"
-                fab:fab_colorNormal="@color/chrome_yellow"
-                fab:fab_colorPressed="@color/orange_peel"
-                fab:fab_icon="@drawable/iconstartnavigation" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="72.0dp"
+            android:background="@color/white"
+            android:elevation="16dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="74dp"
-                android:layout_height="wrap_content"
-                android:text="เริ่ม"
-                android:gravity="center"
-                android:textColor="@color/chrome_yellow"
-                android:textSize="16.0sp"
-                android:layout_below="@id/startButton"
-                android:layout_alignLeft="@id/startButton"/>
+            <LinearLayout
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
 
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/iconClose" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </layout>
