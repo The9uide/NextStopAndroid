@@ -82,6 +82,7 @@
                     android:src="@drawable/makkasan" />
 
                 <TextView
+                    android:id="@+id/nameStation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ชื่อสถานี"
@@ -173,6 +174,7 @@
                             android:layout_gravity="center_vertical"/>
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/backButton"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -187,7 +189,7 @@
             </LinearLayout>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/pink_icon"
+                android:id="@+id/startButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
