@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,8 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white_smokeF7">
+        android:background="@color/white_smokeF7"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,8 +66,138 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="8.5dp"
-            android:elevation="4dp"
             android:layout_weight="1"
-            android:background="@color/white"></RelativeLayout>
+            android:background="@color/white"
+            android:elevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="193.5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/makkasan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ชื่อสถานี"
+                    android:textSize="24.0sp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/black"
+                    android:alpha="0.87"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="สถานีปลายทาง"
+                    android:layout_marginLeft="24.0dp"
+                    android:layout_marginTop="7dp"
+                    android:alpha="0.38"
+                    android:textColor="@color/black"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/iconstairs"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ขึ้นบันไดฝั่ง พญาไท "
+                            android:textSize="14.0sp"
+                            android:textColor="@color/black"
+                            android:alpha="0.87"
+                            android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icontime"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30 นาที"
+                            android:textSize="14.0sp"
+                            android:textColor="@color/black"
+                            android:alpha="0.87"
+                            android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/iconmrt"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="จุดเชื่อมต่อ MRT เพชรบุรี"
+                            android:textSize="14.0sp"
+                            android:textColor="@color/black"
+                            android:alpha="0.87"
+                            android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="เปลี่ยนสถานี"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="24.0dp"
+                        android:textSize="14.0sp"
+                        android:textColor="@color/chrome_yellow"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/pink_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="160dp"
+                fab:fab_colorNormal="@color/chrome_yellow"
+                fab:fab_colorPressed="@color/orange_peel"
+                fab:fab_icon="@drawable/iconstartnavigation" />
+
+        </RelativeLayout>
     </LinearLayout>
 </layout>
