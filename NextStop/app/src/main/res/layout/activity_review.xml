@@ -201,6 +201,16 @@
                 fab:fab_colorPressed="@color/orange_peel"
                 fab:fab_icon="@drawable/iconstartnavigation" />
 
+            <TextView
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:text="เริ่ม"
+                android:gravity="center"
+                android:textColor="@color/chrome_yellow"
+                android:textSize="16.0sp"
+                android:layout_below="@id/startButton"
+                android:layout_alignLeft="@id/startButton"/>
+
         </RelativeLayout>
     </LinearLayout>
 </layout>
