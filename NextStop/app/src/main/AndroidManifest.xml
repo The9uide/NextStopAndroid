@@ -26,8 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.DepartSelectActivity"></activity>
-        <activity android:name=".Activity.DestinationActivity"></activity>
+        <activity android:name=".Activity.DepartSelectActivity" />
+        <activity android:name=".Activity.DestinationActivity" />
+        <activity android:name=".Activity.ReviewActivity"></activity>
     </application>
 
 </manifest>
