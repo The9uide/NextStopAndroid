@@ -31,8 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/name"
+            android:layout_marginLeft="10dp"
             android:alpha="0.3"
-            android:text="@{item.connection}"
+            android:text="@{item.id}"
             android:textColor="@android:color/black" />
 
     </RelativeLayout>

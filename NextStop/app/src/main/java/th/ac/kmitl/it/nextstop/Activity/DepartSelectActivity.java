@@ -40,7 +40,15 @@ public class DepartSelectActivity extends AppCompatActivity {
                 }
             }
         });
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
+
 
 
 }
