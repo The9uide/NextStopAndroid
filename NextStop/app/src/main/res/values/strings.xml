@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="app_name">NextStop</string>
-    <string name="url_api">https://maps.googleapis.com/maps/api/directions/json?mode=transit&amp;transit_mode=subway&amp;key=AIzaSyDJeJe29vIwfDDZ75g1MCtPWVZklhukzQY&amp;origin=13.697904,100.752115&amp;destination=13.755151,100.541822</string>
+    <string name="url_api">https://maps.googleapis.com/maps/api/directions/json?mode=transit&amp;transit_mode=subway&amp;key=AIzaSyDJeJe29vIwfDDZ75g1MCtPWVZklhukzQY</string>
 </resources>
 

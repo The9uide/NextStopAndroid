@@ -3,6 +3,7 @@ package th.ac.kmitl.it.nextstop.Model;
 import android.content.Intent;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.util.Log;
 import android.view.View;
 
 import me.tatarka.bindingcollectionadapter2.BR;
@@ -66,7 +67,7 @@ public class StationList {
 
     public Station getStationFormName(String name){
         for(Station station: items){
-            if(station.getName() == name){
+            if(station.getName().equals(name)){
                 return station;
             }
         }

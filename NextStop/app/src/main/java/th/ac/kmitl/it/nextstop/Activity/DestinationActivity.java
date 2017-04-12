@@ -29,7 +29,7 @@ public class DestinationActivity extends AppCompatActivity {
         binding.setViewModel(StationList.getStations());
 
         Intent intent = getIntent();
-        departStation = intent.getStringExtra("departStation");
+        departStation = intent.getStringExtra("departName");
 
         binding.stationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -37,8 +37,8 @@ public class DestinationActivity extends AppCompatActivity {
 
                 if(true){
                     Intent intent = new Intent(DestinationActivity.this, ReviewActivity.class);
-                    intent.putExtra("departStation",departStation);
-                    intent.putExtra("desStation", StationList.getStations().getStationFormIndex(i).getName());
+                    intent.putExtra("departName",departStation);
+                    intent.putExtra("desName", StationList.getStations().getStationFormIndex(i).getName());
                     startActivity(intent);
                 }else {
                     Intent data = new Intent();

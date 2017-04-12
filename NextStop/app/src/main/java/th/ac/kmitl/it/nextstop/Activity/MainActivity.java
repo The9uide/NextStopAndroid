@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             } else if (binding.destinationButtion == view) {
                 Intent intent = new Intent(MainActivity.this, DestinationActivity.class);
-                intent.putExtra("departStation", departStation);
+                intent.putExtra("departName", departStation);
                 startActivity(intent);
             }
 

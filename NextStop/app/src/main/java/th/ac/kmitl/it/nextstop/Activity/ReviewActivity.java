@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import th.ac.kmitl.it.nextstop.Model.JSONAsyncTask;
@@ -15,8 +16,8 @@ import th.ac.kmitl.it.nextstop.databinding.ActivityReviewBinding;
 public class ReviewActivity extends AppCompatActivity {
 
     ActivityReviewBinding binding;
-    String departStation;
-    String desStation;
+    String departName;
+    String desName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,14 @@ public class ReviewActivity extends AppCompatActivity {
 
     private void initInstance() {
         Intent intent = getIntent();
-        departStation = intent.getStringExtra("departStation");
-        desStation = intent.getStringExtra("desStation");
+        departName = intent.getStringExtra("departName");
+        desName = intent.getStringExtra("desName");
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_review);
-        binding.departButton.setText(departStation + " ▼");
+        binding.departButton.setText(departName + " ▼");
         binding.departButton.setOnClickListener(listener);
         binding.startButton.setOnClickListener(listener);
-        binding.nameStation.setText(desStation);
+        binding.nameStation.setText(desName);
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,11 +46,17 @@ public class ReviewActivity extends AppCompatActivity {
     }
 
     private void setTimeToArrive() {
-        Station depart = StationList.getStations().getStationFormName(departStation);
-        Station destination = StationList.getStations().getStationFormName(desStation);
-        
+        Station departStation = StationList.getStations().getStationFormName(departName);
+        Station destinationStation = StationList.getStations().getStationFormName(desName);
+
+        String origin = departStation.getLatitude() + "," + departStation.getLongitude();
+        String destination = destinationStation.getLatitude() + "," + destinationStation.getLongitude();
+
+        String url = getString(R.string.url_api) + "&origin=" + origin + "&destination=" + destination;
+        Log.e("URL",url);
+
         JSONAsyncTask task = new JSONAsyncTask(this);
-        task.execute(getString(R.string.url_api));
+        task.execute(url);
     }
 
     public void updateArriveTime(int time) {
@@ -64,7 +71,7 @@ public class ReviewActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             } else if (binding.startButton == view) {
                 Intent intent = new Intent(ReviewActivity.this, DestinationActivity.class);
-                intent.putExtra("departStation", departStation);
+                intent.putExtra("departName", departName);
                 startActivity(intent);
             }
         }
