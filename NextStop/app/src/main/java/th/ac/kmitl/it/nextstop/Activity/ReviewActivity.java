@@ -44,7 +44,7 @@ public class ReviewActivity extends AppCompatActivity {
             if(destinationStation.getConnection() != null){
                 binding.connection.setText("จุดเชื่อมต่อ "+ destinationStation.getConnection());
             }else{
-                binding.frameTimeArrive.setVisibility(View.GONE);
+                binding.frameConnection.setVisibility(View.GONE);
             }
         }catch (Exception e){
             binding.frameConnection.setVisibility(View.GONE);

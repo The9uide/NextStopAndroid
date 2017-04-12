@@ -28,7 +28,8 @@
         </activity>
         <activity android:name=".Activity.DepartSelectActivity" />
         <activity android:name=".Activity.DestinationActivity" />
-        <activity android:name=".Activity.ReviewActivity"></activity>
+        <activity android:name=".Activity.ReviewActivity" />
+        <activity android:name=".Activity.TravelActivity"></activity>
     </application>
 
 </manifest>
