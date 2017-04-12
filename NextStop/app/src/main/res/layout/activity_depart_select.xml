@@ -3,15 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="th.ac.kmitl.it.nextstop.R" />
+
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
-        <variable name="viewModel" type="th.ac.kmitl.it.nextstop.Model.StationList"/>
+
+        <variable
+            name="viewModel"
+            type="th.ac.kmitl.it.nextstop.Model.StationList" />
+
+        <variable name="listener" type="android.widget.AdapterView.OnItemClickListener"/>
     </data>
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:items="@{viewModel.items}"
-        app:itemBinding="@{viewModel.itemBinding}"/>
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/dodger_blue"
+            android:elevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20.0dp"
+                    android:layout_height="16.0dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/back_arrow"
+                    android:layout_marginLeft="29.5dp"
+                    android:layout_marginRight="30.5dp"/>
+
+                    <TextView
+                        android:id="@+id/departButton"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:text="เลือกสถานีปลายทาง"
+                        android:textColor="@color/white"
+                        android:textSize="22.5sp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:itemBinding="@{viewModel.itemBinding}"
+            android:onClick="@{() -> listener.onItemClick(item)}"
+            app:items="@{viewModel.items}" />
+    </LinearLayout>
+
 
 </layout>

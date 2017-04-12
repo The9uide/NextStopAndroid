@@ -34,13 +34,6 @@ public class StationAdapter extends ArrayAdapter<Station> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         binding = StationrowlayoutBinding.inflate(inflater,parent,false);
         binding.setItem(values[position]);
-//        View rowView = inflater.inflate(R.layout.stationrowlayout, parent, false);
-//        TextView textView = (TextView) rowView.findViewById(R.id.icon);
-//        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-//        textView.setText(values[position]);
-        // Change the icon for Windows and iPhone
-
-
 
         return binding.getRoot();
     }

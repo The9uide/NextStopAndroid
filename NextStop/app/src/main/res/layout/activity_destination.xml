@@ -3,15 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="th.ac.kmitl.it.nextstop.R" />
+
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
-        <variable name="viewModel" type="th.ac.kmitl.it.nextstop.Model.StationList"/>
+
+        <variable
+            name="viewModel"
+            type="th.ac.kmitl.it.nextstop.Model.StationList" />
+
+        <variable
+            name="listener"
+            type="android.widget.AdapterView.OnItemClickListener" />
     </data>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:items="@{viewModel.items}"
-        app:itemBinding="@{viewModel.itemBinding}"/>
+        app:itemBinding="@{viewModel.itemBinding}"
+        app:items="@{viewModel.items}" />
 
 </layout>
