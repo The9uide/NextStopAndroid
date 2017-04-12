@@ -11,7 +11,7 @@
         <variable
             name="viewModel"
             type="th.ac.kmitl.it.nextstop.Model.StationList" />
-        
+
     </data>
 
     <LinearLayout
@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@color/dodger_blue"
+            android:background="@color/chrome_yellow"
             android:elevation="10dp">
 
             <LinearLayout
@@ -33,9 +33,9 @@
 
                 <ImageView
                     android:layout_width="80.0dp"
-                    android:layout_height="40.0dp"
+                    android:layout_height="26.5dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/iconstartstation" />
+                    android:src="@drawable/iconnextstaion" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -48,8 +48,8 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:alpha="0.7"
-                        android:gravity="bottom"
-                        android:text="ตอนนี้คุณอยู่สถานี (ɔ◔‿◔)ɔ ♥"
+                        android:gravity="center"
+                        android:text="สถานีต่อไป"
                         android:textColor="@color/white"
                         android:textSize="14.0sp" />
 
@@ -59,7 +59,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="top"
-                        android:text="กรุณาเลือกสถานีต้นทาง ▼"
+                        android:text="ชื่อสถานีต่อไป"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
                 </LinearLayout>
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8.5dp"
                     android:background="@color/white"
-                    android:elevation="4dp">
+                    android:elevation="6dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -117,16 +117,23 @@
                     </LinearLayout>
                 </RelativeLayout>
 
-                <ListView
-                    android:id="@+id/routeListView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8.5dp"
                     android:layout_marginLeft="8.5dp"
                     android:layout_marginRight="8.5dp"
-                    android:elevation="6dp"
-                    app:itemBinding="@{viewModel.itemBinding}"
-                    app:items="@{viewModel.items}"></ListView>
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:background="@color/white">
+
+                    <ListView
+                        android:id="@+id/routeListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="590dp"
+                        app:itemBinding="@{viewModel.itemBinding}"
+                        app:items="@{viewModel.items}"></ListView>
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
@@ -145,7 +152,34 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/iconClose" />
+                    android:src="@drawable/iconclose" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:gravity="bottom"
+                    android:text="ถึงสถานีมักกะสัน ในอีก 30 นาที"
+                    android:textColor="@color/chrome_yellow"
+                    android:textSize="16.0sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:alpha="0.38"
+                    android:gravity="center"
+                    android:text="ถัดไปอีก 2 ป้าย (12:39)"
+                    android:textColor="@color/black"
+                    android:textSize="14.0sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

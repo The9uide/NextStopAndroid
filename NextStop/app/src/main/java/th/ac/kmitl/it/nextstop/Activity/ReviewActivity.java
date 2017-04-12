@@ -82,7 +82,7 @@ public class ReviewActivity extends AppCompatActivity {
                 Intent intent = new Intent(ReviewActivity.this, DepartSelectActivity.class);
                 startActivityForResult(intent, 1);
             } else if (binding.startButton == view) {
-                Intent intent = new Intent(ReviewActivity.this, DestinationActivity.class);
+                Intent intent = new Intent(ReviewActivity.this, TravelActivity.class);
                 intent.putExtra("departName", departName);
                 startActivity(intent);
             }
