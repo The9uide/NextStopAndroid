@@ -122,6 +122,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
                 startActivity(intent);
             } else if (binding.noButton == view) {
                 Intent intent = new Intent(LandingActivity.this, DepartSelectActivity.class);
+                intent.putExtra("first",true);
                 startActivity(intent);
             }
         }

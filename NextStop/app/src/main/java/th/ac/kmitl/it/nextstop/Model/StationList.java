@@ -1,11 +1,16 @@
 package th.ac.kmitl.it.nextstop.Model;
 
+import android.content.Intent;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.view.View;
 
 import me.tatarka.bindingcollectionadapter2.BR;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
+import th.ac.kmitl.it.nextstop.Activity.DepartSelectActivity;
+import th.ac.kmitl.it.nextstop.Activity.LandingActivity;
+import th.ac.kmitl.it.nextstop.Activity.MainActivity;
 import th.ac.kmitl.it.nextstop.R;
 
 /**
@@ -14,6 +19,7 @@ import th.ac.kmitl.it.nextstop.R;
 
 public class StationList {
     private static StationList stations = null;
+
     public final OnItemBind<Station> onItemBind = new OnItemBind<Station>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, Station item) {
@@ -53,4 +59,9 @@ public class StationList {
         }
         return stations;
     }
+
+    public Station getStationFormIndex(int position){
+        return items.get(position);
+    }
+
 }

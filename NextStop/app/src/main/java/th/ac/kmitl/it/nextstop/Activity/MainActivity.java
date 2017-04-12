@@ -2,6 +2,7 @@ package th.ac.kmitl.it.nextstop.Activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,17 +48,27 @@ public class MainActivity extends AppCompatActivity {
         binding.destinationButtion.setOnClickListener(listener);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1){
+            if (resultCode == RESULT_OK){
+                binding.departButton.setText(data.getStringExtra("station")+ " ▼");
+            }
+        }
+    }
+
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             if(binding.departButton == view){
                 Intent intent = new Intent(MainActivity.this,DepartSelectActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }else if(binding.destinationButtion == view){
                 Intent intent = new Intent(MainActivity.this,DestinationActivity.class);
                 intent.putExtra("departStation",departStation);
                 startActivity(intent);
             }
+
         }
     };
 }
