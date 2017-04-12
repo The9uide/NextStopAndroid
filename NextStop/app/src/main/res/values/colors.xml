@@ -5,8 +5,8 @@
   <color name="colorAccent">#FF4081</color>
   <color name="black">#000000</color>
   <color name="white">#ffffff</color>
-  <color name="white_smoke">#f7f7f7</color>
-  <color name="white_smoke_1">#f8f8f8</color>
+  <color name="white_smokeF7">#f7f7f7</color>
+  <color name="white_smokeF8">#f8f8f8</color>
   <color name="dodger_blue">#2196f3</color>
   <color name="chrome_yellow">#ffab00</color>
   <color name="timberwolf">#d8d8d8</color>
