@@ -41,17 +41,6 @@ public class StationList {
         items.add(new Station("ราชปรารภ", "A7", null, 13.755133, 100.541826));
         items.add(new Station("พญาไท", "A8", "BTS พญาไท", 13.756711, 100.534972));
 
-
-        items.add(new Station("สุวรรณภูมิ", "A1", null, 13.698090, 100.752265));
-        items.add(new Station("ลาดกระบัง", "A2", null, 13.727669, 100.748717));
-        items.add(new Station("บ้านทับช้าง", "A3", null, 13.732827, 100.691467));
-        items.add(new Station("หัวหมาก", "A4", null, 13.737958, 100.645347));
-        items.add(new Station("รามคำแหง", "A5", null, 13.742959, 100.600257));
-        items.add(new Station("มักกะสัน", "A6", "MRT เพชรบุรี", 13.751017, 100.561346));
-        items.add(new Station("ราชปรารภ", "A7", null, 13.755133, 100.541826));
-        items.add(new Station("พญาไท", "A8", "BTS พญาไท", 13.756711, 100.534972));
-
-
     }
 
     public static StationList getStations() {

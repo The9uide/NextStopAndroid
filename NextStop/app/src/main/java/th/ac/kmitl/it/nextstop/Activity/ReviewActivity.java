@@ -18,6 +18,8 @@ public class ReviewActivity extends AppCompatActivity {
     ActivityReviewBinding binding;
     String departName;
     String desName;
+    Station departStation;
+    Station destinationStation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +32,24 @@ public class ReviewActivity extends AppCompatActivity {
         departName = intent.getStringExtra("departName");
         desName = intent.getStringExtra("desName");
 
+        departStation = StationList.getStations().getStationFormName(departName);
+        destinationStation = StationList.getStations().getStationFormName(desName);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_review);
         binding.departButton.setText(departName + " ▼");
         binding.departButton.setOnClickListener(listener);
         binding.startButton.setOnClickListener(listener);
         binding.nameStation.setText(desName);
+        try {
+            if(destinationStation.getConnection() != null){
+                binding.connection.setText("จุดเชื่อมต่อ "+ destinationStation.getConnection());
+            }else{
+                binding.frameTimeArrive.setVisibility(View.GONE);
+            }
+        }catch (Exception e){
+            binding.frameConnection.setVisibility(View.GONE);
+        }
+
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,14 +61,11 @@ public class ReviewActivity extends AppCompatActivity {
     }
 
     private void setTimeToArrive() {
-        Station departStation = StationList.getStations().getStationFormName(departName);
-        Station destinationStation = StationList.getStations().getStationFormName(desName);
-
         String origin = departStation.getLatitude() + "," + departStation.getLongitude();
         String destination = destinationStation.getLatitude() + "," + destinationStation.getLongitude();
 
         String url = getString(R.string.url_api) + "&origin=" + origin + "&destination=" + destination;
-        Log.e("URL",url);
+        Log.e("URL", url);
 
         JSONAsyncTask task = new JSONAsyncTask(this);
         task.execute(url);
