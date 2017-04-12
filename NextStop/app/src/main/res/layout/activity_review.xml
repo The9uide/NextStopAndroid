@@ -142,6 +142,7 @@
                             android:src="@drawable/icontime"/>
 
                         <TextView
+                            android:id="@+id/timeToArrive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="30 นาที"

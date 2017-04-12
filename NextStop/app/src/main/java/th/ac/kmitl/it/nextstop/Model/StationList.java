@@ -64,4 +64,13 @@ public class StationList {
         return items.get(position);
     }
 
+    public Station getStationFormName(String name){
+        for(Station station: items){
+            if(station.getName() == name){
+                return station;
+            }
+        }
+        return null;
+    }
+
 }
