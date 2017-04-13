@@ -91,4 +91,6 @@ public class StationManager {
         int time = (int) (baseTime * currentDistance / totalDistance );
         return time;
     }
+
+
 }

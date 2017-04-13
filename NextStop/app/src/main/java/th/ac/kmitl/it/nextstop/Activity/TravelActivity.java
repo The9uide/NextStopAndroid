@@ -161,11 +161,14 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
         route =  stationManager.updateNexttation(route);
         setRouteTravel();
-        binding.destinationStation.setText(latitude + " : " + longitude);
         binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + stationManager.updateTimeToArrive() + " นาที");
     }
-
-    public void updateTravelingStation(Location location) {
-
-    }
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (binding.closeButton == view) {
+                finish();
+            }
+        }
+    };
 }

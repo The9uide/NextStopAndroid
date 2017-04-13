@@ -150,6 +150,7 @@
                 android:gravity="center">
 
                 <ImageView
+                    android:id="@+id/closeButton"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/iconclose" />
