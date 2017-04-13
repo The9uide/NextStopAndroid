@@ -89,13 +89,13 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     public void onConnected(Bundle bundle) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        Log.i(LandingActivity.class.getSimpleName(), mLastLocation.toString());
         if (mLastLocation != null) {
             binding.confirmStation.setText(String.valueOf(mLastLocation.getLatitude()));
             Log.i(LandingActivity.class.getSimpleName(), String.valueOf(mLastLocation.getLongitude()) + ":" + String.valueOf(mLastLocation.getLatitude()));
             setUpCurrentLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
         } else {
             binding.confirmStation.setText("Cannot get location");
+            binding.yesButton.setEnabled(false);
         }
     }
 

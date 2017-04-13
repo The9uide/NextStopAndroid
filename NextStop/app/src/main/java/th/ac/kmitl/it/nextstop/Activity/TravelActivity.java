@@ -42,6 +42,7 @@ public class TravelActivity extends AppCompatActivity {
         binding.nextStationLabel.setText(departName);
         binding.destinationStation.setText(desName);
         binding.setViewModel(StationList.getStations());
+        binding.routeListView.setFocusable(false);
 
         stationList = StationList.getStations();
         departStation = stationList.getStationFormName(departName);
@@ -68,7 +69,6 @@ public class TravelActivity extends AppCompatActivity {
 
     public void setRouteTravel() {
         String[] route = stationList.getRouteTravel(departStation, destinationStation);
-        Log.e("Route",route[0]+route[1]+route[2]);
         binding.nextStationLabel.setText(route[1]);
     }
 
