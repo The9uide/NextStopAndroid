@@ -50,17 +50,38 @@ public class StationList {
         return stations;
     }
 
-    public Station getStationFormIndex(int position){
+    public Station getStationFormIndex(int position) {
         return items.get(position);
     }
 
-    public Station getStationFormName(String name){
-        for(Station station: items){
-            if(station.getName().equals(name)){
+    public Station getStationFormName(String name) {
+        for (Station station : items) {
+            if (station.getName().equals(name)) {
                 return station;
             }
         }
         return null;
+    }
+
+    public String getStationStair(Station departStation, Station desStation) {
+
+        int depart = getIndexWithStation(departStation);
+        int destination = getIndexWithStation(desStation);
+        Log.e("Stair Value", departStation.getName() + depart + " - " +desStation.getName()+ destination + " = " + (depart - destination) + "");
+        if (depart - destination < 0) {
+            return "พญาไท";
+        } else {
+            return "สุวรรณภูมิ";
+        }
+    }
+
+    private int getIndexWithStation(Station station) {
+        for (int i = 0; i < items.size(); i++) {
+            if (station.equals(items.get(i))) {
+                return i;
+            }
+        }
+        return 0;
     }
 
 }

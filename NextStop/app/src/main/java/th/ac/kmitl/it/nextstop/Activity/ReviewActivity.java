@@ -20,6 +20,7 @@ public class ReviewActivity extends AppCompatActivity {
     String desName;
     Station departStation;
     Station destinationStation;
+    StationList stationList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,9 @@ public class ReviewActivity extends AppCompatActivity {
         departName = intent.getStringExtra("departName");
         desName = intent.getStringExtra("desName");
 
-        departStation = StationList.getStations().getStationFormName(departName);
-        destinationStation = StationList.getStations().getStationFormName(desName);
+        stationList = StationList.getStations();
+        departStation = stationList.getStationFormName(departName);
+        destinationStation = stationList.getStationFormName(desName);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_review);
         binding.departButton.setText(departName + " ▼");
@@ -50,7 +52,6 @@ public class ReviewActivity extends AppCompatActivity {
             binding.frameConnection.setVisibility(View.GONE);
         }
 
-
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +59,7 @@ public class ReviewActivity extends AppCompatActivity {
             }
         });
         setTimeToArrive();
+        setStair();
     }
 
     private void setTimeToArrive() {
@@ -69,6 +71,11 @@ public class ReviewActivity extends AppCompatActivity {
 
         JSONAsyncTask task = new JSONAsyncTask(this);
         task.execute(url);
+    }
+
+    public void setStair(){
+        String stair = stationList.getStationStair(departStation,destinationStation);
+        binding.stair.setText("ขึ้นบันไดฝั่ง \"" + stair + "\"");
     }
 
     public void updateArriveTime(int time) {
@@ -93,7 +100,8 @@ public class ReviewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                binding.departButton.setText(data.getStringExtra("station") + " ▼");
+                departName = data.getStringExtra("station");
+                binding.departButton.setText(departName + " ▼");
             }
         }
     }

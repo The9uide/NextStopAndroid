@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                binding.departButton.setText(data.getStringExtra("station") + " ▼");
+                departStation = data.getStringExtra("station");
+                binding.departButton.setText(departStation + " ▼");
             }
         }
     }
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (binding.destinationButtion == view) {
                 Intent intent = new Intent(MainActivity.this, DestinationActivity.class);
                 intent.putExtra("departName", departStation);
+                Log.e("Main Send Insent : ",departStation);
                 startActivity(intent);
             }
 

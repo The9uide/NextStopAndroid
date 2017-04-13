@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -39,12 +40,8 @@ public class DestinationActivity extends AppCompatActivity {
                     Intent intent = new Intent(DestinationActivity.this, ReviewActivity.class);
                     intent.putExtra("departName",departStation);
                     intent.putExtra("desName", StationList.getStations().getStationFormIndex(i).getName());
+                    Log.e("Des Send Intent : ",departStation + " > "+ StationList.getStations().getStationFormIndex(i).getName());
                     startActivity(intent);
-                }else {
-                    Intent data = new Intent();
-                    data.putExtra("station", StationList.getStations().getStationFormIndex(i).getName());
-                    setResult(RESULT_OK, data);
-                    finish();
                 }
             }
         });
