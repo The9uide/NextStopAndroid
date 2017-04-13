@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             } else if (binding.destinationButtion == view) {
                 Intent intent = new Intent(MainActivity.this, DestinationActivity.class);
                 intent.putExtra("departName", departStation);
-                Log.e("Main Send Insent : ",departStation);
                 startActivity(intent);
             }
 

@@ -3,8 +3,6 @@ package th.ac.kmitl.it.nextstop.Model;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.loopj.android.http.HttpGet;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,12 +14,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import cz.msebera.android.httpclient.util.EntityUtils;
 import th.ac.kmitl.it.nextstop.Activity.ReviewActivity;
+import th.ac.kmitl.it.nextstop.Activity.TravelActivity;
 
 /**
  * Created by The9uide on 11-Apr-17.
@@ -31,16 +25,20 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
     private String serverResponse;
     private int resultTime;
-    private ReviewActivity activity;
+    private ReviewActivity reviewActivity;
+    private TravelActivity travelActivity;
 
     public JSONAsyncTask(ReviewActivity activity) {
-        this.activity = activity;
+        this.reviewActivity = activity;
+    }
+
+    public JSONAsyncTask(TravelActivity activity) {
+        this.travelActivity = activity;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
     }
 
     @Override
@@ -56,19 +54,15 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
             if (status == HttpURLConnection.HTTP_OK) {
                 serverResponse = readStream(urlConnection.getInputStream());
-                Log.v("CatalogClient", serverResponse);
 
                 JSONObject resultJson = new JSONObject(serverResponse);
                 JSONArray resultArray = resultJson.getJSONArray("routes");
-                Log.e("route", "" + resultArray);
                 resultJson = resultArray.getJSONObject(0);
                 resultArray = resultJson.getJSONArray("legs");
-                Log.e("legs", "" + resultArray);
                 resultJson = resultArray.getJSONObject(0);
                 resultJson = resultJson.getJSONObject("duration");
-                Log.e("duration", "" + resultJson);
                 String tmp = String.valueOf(resultJson.get("text")).split(" ")[0];
-                resultTime =  Integer.parseInt(tmp);
+                resultTime = Integer.parseInt(tmp);
 
                 return true;
             }
@@ -86,7 +80,12 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
     protected void onPostExecute(Boolean result) {
 
         Log.e("Response", "" + serverResponse);
-        activity.updateArriveTime(resultTime);
+        if (travelActivity != null) {
+            travelActivity.updateArriveTime(resultTime);
+        } else if (reviewActivity != null) {
+            reviewActivity.updateArriveTime(resultTime);
+
+        }
     }
 
     private String readStream(InputStream in) {

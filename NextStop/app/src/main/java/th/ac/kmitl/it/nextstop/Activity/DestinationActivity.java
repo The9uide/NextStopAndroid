@@ -40,7 +40,6 @@ public class DestinationActivity extends AppCompatActivity {
                     Intent intent = new Intent(DestinationActivity.this, ReviewActivity.class);
                     intent.putExtra("departName",departStation);
                     intent.putExtra("desName", StationList.getStations().getStationFormIndex(i).getName());
-                    Log.e("Des Send Intent : ",departStation + " > "+ StationList.getStations().getStationFormIndex(i).getName());
                     startActivity(intent);
                 }
             }

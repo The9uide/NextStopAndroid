@@ -91,6 +91,7 @@ public class ReviewActivity extends AppCompatActivity {
             } else if (binding.startButton == view) {
                 Intent intent = new Intent(ReviewActivity.this, TravelActivity.class);
                 intent.putExtra("departName", departName);
+                intent.putExtra("desName",desName);
                 startActivity(intent);
             }
         }

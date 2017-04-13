@@ -10,6 +10,7 @@ import me.tatarka.bindingcollectionadapter2.BR;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 import th.ac.kmitl.it.nextstop.Activity.DepartSelectActivity;
+import th.ac.kmitl.it.nextstop.Activity.DestinationActivity;
 import th.ac.kmitl.it.nextstop.Activity.LandingActivity;
 import th.ac.kmitl.it.nextstop.Activity.MainActivity;
 import th.ac.kmitl.it.nextstop.R;
@@ -67,7 +68,7 @@ public class StationList {
 
         int depart = getIndexWithStation(departStation);
         int destination = getIndexWithStation(desStation);
-        Log.e("Stair Value", departStation.getName() + depart + " - " +desStation.getName()+ destination + " = " + (depart - destination) + "");
+        Log.e("Stair Value", departStation.getName() + depart + " - " + desStation.getName() + destination + " = " + (depart - destination) + "");
         if (depart - destination < 0) {
             return "พญาไท";
         } else {
@@ -82,6 +83,25 @@ public class StationList {
             }
         }
         return 0;
+    }
+
+    public String[] getRouteTravel(Station departStation, Station desStation) {
+        int depart = getIndexWithStation(departStation);
+        int destination = getIndexWithStation(desStation);
+        String[] route = new String[Math.abs(depart - destination)];
+        int index = 0;
+        if (depart < destination) {
+            for (int i = depart; i < destination; i++) {
+                route[index] = items.get(i).getName();
+                index++;
+            }
+        } else if (depart > destination) {
+            for (int i = depart; i > destination; i--) {
+                route[index] = items.get(i).getName();
+                index++;
+            }
+        }
+        return route;
     }
 
 }
