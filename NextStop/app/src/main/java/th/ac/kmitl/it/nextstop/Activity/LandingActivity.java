@@ -112,7 +112,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.i(LandingActivity.class.getSimpleName(), "Can't connect to Google Play Services!");
+        Log.e(LandingActivity.class.getSimpleName(), "Can't connect to Google Play Services!");
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
