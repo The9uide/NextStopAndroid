@@ -21,6 +21,7 @@ public class ReviewActivity extends AppCompatActivity {
     Station departStation;
     Station destinationStation;
     StationList stationList;
+    private int timeToArrive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class ReviewActivity extends AppCompatActivity {
 
     public void updateArriveTime(int time) {
         binding.timeToArrive.setText(time + " นาที");
+        timeToArrive = time;
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -92,6 +94,7 @@ public class ReviewActivity extends AppCompatActivity {
                 Intent intent = new Intent(ReviewActivity.this, TravelActivity.class);
                 intent.putExtra("departName", departName);
                 intent.putExtra("desName",desName);
+                intent.putExtra("timeToArrive",timeToArrive);
                 startActivity(intent);
             }
         }

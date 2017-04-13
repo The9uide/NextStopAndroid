@@ -27,10 +27,10 @@ import th.ac.kmitl.it.nextstop.databinding.ActivityTravelBinding;
 public class TravelActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     ActivityTravelBinding binding;
-    String departName;
-    String desName;
-    Station departStation;
-    Station destinationStation;
+    private String departName;
+    private String desName;
+    private Station departStation;
+    private Station destinationStation;
     private StationList stationList;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -72,6 +72,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)
                 .setFastestInterval(1 * 1000);
+
 
         route = stationList.getRouteTravel(departStation, destinationStation);
         setRouteTravel();
@@ -117,12 +118,15 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         } else {
             binding.nextStationLabel.setText(route[0]);
         }
+
+        binding.subEstimateTime.setText("ถัดไปอีก " + (route.length-1) + "ป้าย");
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         stationManager = new StationManager(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        stationManager.setupBaseTime( getIntent().getIntExtra("timeToArrive",0),departStation,destinationStation);
         if (mRequestingLocationUpdates) {
             startLocationUpdates();
             mRequestingLocationUpdates = false;
@@ -154,9 +158,11 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         double latitude = mCurrentLocation.getLatitude();
         double longitude = mCurrentLocation.getLongitude();
         stationManager.updateLocation(latitude, longitude);
+
         route =  stationManager.updateNexttation(route);
         setRouteTravel();
         binding.destinationStation.setText(latitude + " : " + longitude);
+        binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + stationManager.updateTimeToArrive() + " นาที");
     }
 
     public void updateTravelingStation(Location location) {

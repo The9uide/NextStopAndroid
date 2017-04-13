@@ -1,11 +1,9 @@
 package th.ac.kmitl.it.nextstop.Model;
 
-import android.content.res.Resources;
 import android.util.Log;
 
 import java.util.Arrays;
 
-import th.ac.kmitl.it.nextstop.R;
 
 /**
  * Created by The9uide on 11-Apr-17.
@@ -13,10 +11,12 @@ import th.ac.kmitl.it.nextstop.R;
 
 public class StationManager {
     private Station currentStation;
-    private Station nextStation;
     private double latitude;
     private double longitude;
     private StationList stationList = StationList.getStations();
+    private double totalDistance;
+    private int baseTime;
+    private Station destinationStation;
 
 
     public StationManager(double latitude, double longitude) {
@@ -35,7 +35,6 @@ public class StationManager {
         double distance;
         for (Station s : stationList.items) {
             distance = getDistance(s, latitude, longitude);
-//            Log.e(s.getName(), distance + "");
             if (minStation == null & minDistance == 0) {
                 minStation = s;
                 minDistance = distance;
@@ -53,12 +52,11 @@ public class StationManager {
         return Math.sqrt(xPoint + yPoint);
     }
 
-    public String[] updateNexttation(String[] route){
-        Station currentStation = stationList.getStationFormName(route[0]);
-        if(route.length > 1){
+    public String[] updateNexttation(String[] route) {
+        if (route.length > 1) {
             Station nextStation = stationList.getStationFormName(route[1]);
-            Station nearestStation = getNearestStation(this.latitude,this.longitude);
-            if (nearestStation.equals(nextStation)){
+            Station nearestStation = getNearestStation(this.latitude, this.longitude);
+            if (nearestStation.equals(nextStation)) {
                 return Arrays.copyOfRange(route, 1, route.length);
             }
         }
@@ -66,12 +64,12 @@ public class StationManager {
         return route;
     }
 
-    public void updateLocation(double latitude, double longitude){
+    public void updateLocation(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    private void connectDestinationAPI(Station station){
+    private void connectDestinationAPI(Station station) {
         String origin = latitude + "," + longitude;
         String destination = station.getLatitude() + "," + station.getLongitude();
         String url = "https://maps.googleapis.com/maps/api/directions/json?mode=walking&amp;transit_mode=subway&amp;key=AIzaSyDJeJe29vIwfDDZ75g1MCtPWVZklhukzQY" + "&origin=" + origin + "&destination=" + destination;
@@ -79,5 +77,18 @@ public class StationManager {
 
         JSONAsyncTask task = new JSONAsyncTask(this);
         task.execute(url);
+    }
+
+    public void setupBaseTime(int time, Station departStation, Station destinationStation) {
+        this.baseTime = time;
+        this.totalDistance = getDistance(departStation, destinationStation.getLatitude(), destinationStation.getLongitude());
+        this.destinationStation = destinationStation;
+    }
+
+    public int updateTimeToArrive() {
+        double currentDistance = getDistance(destinationStation,this.latitude,this.longitude);
+        Log.e("Time",baseTime + " " + currentDistance + " " + totalDistance);
+        int time = (int) (baseTime * currentDistance / totalDistance );
+        return time;
     }
 }

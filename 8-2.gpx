@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.0">
+	<name>A2 to A8</name>
+	<trk><name>Example gpx</name><number>1</number><trkseg>
+		<trkpt lat="13.756638" lon="100.535360"><ele>2374</ele><time>2007-10-14T10:10:00Z</time></trkpt>
+		<trkpt lat="13.755378" lon="100.540948"><ele>2373</ele><time>2007-10-14T10:10:30Z</time></trkpt>
+		<trkpt lat="13.754605" lon="100.544480"><ele>2374</ele><time>2007-10-14T10:11:00Z</time></trkpt>
+		<trkpt lat="13.751959" lon="100.556649"><ele>2373</ele><time>2007-10-14T10:11:30Z</time></trkpt>
+		<trkpt lat="13.748445" lon="100.572088"><ele>2372</ele><time>2007-10-14T10:12:00Z</time></trkpt>
+		<trkpt lat="13.744222" lon="100.591711"><ele>2375</ele><time>2007-10-14T10:12:30Z</time></trkpt>
+		<trkpt lat="13.741994" lon="100.609899"><ele>2376</ele><time>2007-10-14T10:13:00Z</time></trkpt>
+		<trkpt lat="13.738695" lon="100.639332"><ele>2374</ele><time>2007-10-14T10:13:30Z</time></trkpt>
+		<trkpt lat="13.737408" lon="100.651731"><ele>2373</ele><time>2007-10-14T10:14:00Z</time></trkpt>
+		<trkpt lat="13.733685" lon="100.684444"><ele>2372</ele><time>2007-10-14T10:14:30Z</time></trkpt>
+		<trkpt lat="13.730386" lon="100.713008"><ele>2375</ele><time>2007-10-14T10:15:00Z</time></trkpt>
+		<trkpt lat="13.727756" lon="100.748873"><ele>2376</ele><time>2007-10-14T10:15:30Z</time></trkpt>
+	</trkseg></trk>
+</gpx>
