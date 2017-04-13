@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationServices;
 import th.ac.kmitl.it.nextstop.Model.JSONAsyncTask;
 import th.ac.kmitl.it.nextstop.Model.Station;
 import th.ac.kmitl.it.nextstop.Model.StationList;
+import th.ac.kmitl.it.nextstop.Model.StationManager;
 import th.ac.kmitl.it.nextstop.R;
 import th.ac.kmitl.it.nextstop.databinding.ActivityTravelBinding;
 
@@ -35,13 +36,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     private LocationRequest mLocationRequest;
     private Location mCurrentLocation;
     private boolean mRequestingLocationUpdates = true;
-
+    private String[] route;
+    private StationManager stationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_travel);
-        binding.setViewModel(StationList.getStations());
         initInstance();
     }
 
@@ -73,8 +73,10 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
                 .setInterval(10 * 1000)
                 .setFastestInterval(1 * 1000);
 
-        setTimeToArrive();
+        route = stationList.getRouteTravel(departStation, destinationStation);
         setRouteTravel();
+        setTimeToArrive();
+
     }
 
     private void setTimeToArrive() {
@@ -88,20 +90,37 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         task.execute(url);
     }
 
+    @Override
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
     public void updateArriveTime(int time) {
         binding.estimateTime.setText(time + " นาที");
     }
 
     public void setRouteTravel() {
-        String[] route = stationList.getRouteTravel(departStation, destinationStation);
-        binding.nextStationLabel.setText(route[1]);
+        if (route.length > 1) {
+            binding.nextStationLabel.setText(route[1]);
+        } else {
+            binding.nextStationLabel.setText(route[0]);
+        }
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(mRequestingLocationUpdates){
+        stationManager = new StationManager(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        if (mRequestingLocationUpdates) {
             startLocationUpdates();
+            Log.e("Update Location", "Start update!!!!!");
             mRequestingLocationUpdates = false;
         }
 
@@ -109,7 +128,6 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     protected void startLocationUpdates() {
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-
     }
 
     @Override
@@ -124,12 +142,21 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.e("Update Location", "Updating!!!!!");
         updateLocation(location);
     }
 
     private void updateLocation(Location location) {
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
+        mCurrentLocation = location;
+        double latitude = mCurrentLocation.getLatitude();
+        double longitude = mCurrentLocation.getLongitude();
+        stationManager.updateLocation(latitude, longitude);
+        route =  stationManager.updateNexttation(route);
+        setRouteTravel();
+        binding.destinationStation.setText(latitude + " : " + longitude);
+    }
+
+    public void updateTravelingStation(Location location) {
 
     }
 }

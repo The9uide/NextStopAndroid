@@ -94,6 +94,7 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
             Log.i(LandingActivity.class.getSimpleName(), String.valueOf(mLastLocation.getLongitude()) + ":" + String.valueOf(mLastLocation.getLatitude()));
             setUpCurrentLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
         } else {
+            Log.e(LandingActivity.class.getSimpleName(),"Cannot get location");
             binding.confirmStation.setText("Cannot get location");
             binding.yesButton.setEnabled(false);
         }

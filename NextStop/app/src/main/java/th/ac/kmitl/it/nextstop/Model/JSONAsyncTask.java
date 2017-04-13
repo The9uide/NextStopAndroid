@@ -25,8 +25,10 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
     private String serverResponse;
     private int resultTime;
+    private double resultDistance;
     private ReviewActivity reviewActivity;
     private TravelActivity travelActivity;
+    private StationManager stationManager;
 
     public JSONAsyncTask(ReviewActivity activity) {
         this.reviewActivity = activity;
@@ -35,6 +37,11 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
     public JSONAsyncTask(TravelActivity activity) {
         this.travelActivity = activity;
     }
+
+    public JSONAsyncTask(StationManager activity) {
+        this.stationManager = activity;
+    }
+
 
     @Override
     protected void onPreExecute() {
@@ -60,9 +67,10 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
                 resultJson = resultArray.getJSONObject(0);
                 resultArray = resultJson.getJSONArray("legs");
                 resultJson = resultArray.getJSONObject(0);
-                resultJson = resultJson.getJSONObject("duration");
-                String tmp = String.valueOf(resultJson.get("text")).split(" ")[0];
+                String tmp = String.valueOf(resultJson.getJSONObject("duration").get("text")).split(" ")[0];
                 resultTime = Integer.parseInt(tmp);
+                tmp = String.valueOf(resultJson.getJSONObject("distance").get("text")).split(" ")[0];
+                resultDistance = Double.parseDouble(tmp);
 
                 return true;
             }
@@ -82,9 +90,12 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
         Log.e("Response", "" + serverResponse);
         if (travelActivity != null) {
             travelActivity.updateArriveTime(resultTime);
+
         } else if (reviewActivity != null) {
             reviewActivity.updateArriveTime(resultTime);
 
+        } else if (stationManager != null){
+            Log.e("Distance to NextStation",resultDistance+"");
         }
     }
 
