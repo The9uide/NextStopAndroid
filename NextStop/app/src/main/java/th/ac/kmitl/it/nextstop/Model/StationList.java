@@ -88,15 +88,15 @@ public class StationList {
     public String[] getRouteTravel(Station departStation, Station desStation) {
         int depart = getIndexWithStation(departStation);
         int destination = getIndexWithStation(desStation);
-        String[] route = new String[Math.abs(depart - destination)];
+        String[] route = new String[Math.abs(depart - destination)+1];
         int index = 0;
         if (depart < destination) {
-            for (int i = depart; i < destination; i++) {
+            for (int i = depart; i <= destination; i++) {
                 route[index] = items.get(i).getName();
                 index++;
             }
         } else if (depart > destination) {
-            for (int i = depart; i > destination; i--) {
+            for (int i = depart; i >= destination; i--) {
                 route[index] = items.get(i).getName();
                 index++;
             }

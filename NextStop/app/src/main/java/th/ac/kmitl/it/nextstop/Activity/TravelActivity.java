@@ -107,6 +107,11 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     public void setRouteTravel() {
+        String tmp = "";
+        for(String s:route){
+            tmp += " " +s;
+        }
+        Log.e("Route",tmp);
         if (route.length > 1) {
             binding.nextStationLabel.setText(route[1]);
         } else {
@@ -120,7 +125,6 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         stationManager = new StationManager(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
         if (mRequestingLocationUpdates) {
             startLocationUpdates();
-            Log.e("Update Location", "Start update!!!!!");
             mRequestingLocationUpdates = false;
         }
 
@@ -142,7 +146,6 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.e("Update Location", "Updating!!!!!");
         updateLocation(location);
     }
 

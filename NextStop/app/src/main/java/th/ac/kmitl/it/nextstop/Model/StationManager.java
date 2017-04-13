@@ -35,7 +35,7 @@ public class StationManager {
         double distance;
         for (Station s : stationList.items) {
             distance = getDistance(s, latitude, longitude);
-            Log.e(s.getName(), distance + "");
+//            Log.e(s.getName(), distance + "");
             if (minStation == null & minDistance == 0) {
                 minStation = s;
                 minDistance = distance;
