@@ -39,6 +39,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     private String[] route;
     private StationManager stationManager;
     private NotificationCompat.Builder mBuilder;
+    private int timeToArrive;
     private int count = 0;
 
     @Override
@@ -58,6 +59,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.setViewModel(StationList.getStations());
         binding.routeListView.setFocusable(false);
         binding.closeButton.setOnClickListener(listener);
+        binding.agreeButton.setOnClickListener(listener);
 
         stationList = StationList.getStations();
         departStation = stationList.getStationFormName(departName);
@@ -165,38 +167,53 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         route = stationManager.updateNexttation(route);
         setRouteTravel();
         notificationArriveStation();
-        binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + stationManager.updateTimeToArrive() + " นาที");
+        timeToArrive = stationManager.updateTimeToArrive();
+        binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + timeToArrive + " นาที");
     }
 
     public void notificationArriveStation() {
 
-        if (mBuilder == null && route.length == 2) {
+        if (mBuilder == null && route.length == 2||count == 1) {
             mBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.iconnextstaion)
                     .setContentTitle("เตรียมตัวให้พร้อม!!!")
                     .setContentText("สถานีต่อไปคือสถานีปลายทาง");
             Log.e("Notification", "FIRST NOTI");
-            count++;
-        } else if (route.length == 1) {
-            mBuilder.setSmallIcon(R.drawable.iconnextstaion)
+            showNotification(0);
+            notifyNotification();
+        } else if (route.length == 1 || count == 2) {
+            mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.iconnextstaion)
                     .setContentTitle("ถึงสถานีปลายทางแล้ว!!!")
                     .setContentText("สถานีนี้คือสถานีปลายของท่าน");
             Log.e("Notification", "SECOND NOTI");
+            showNotification(1);
+            notifyNotification();
         }
+    }
 
+    private void notifyNotification(){
         Intent resultIntent = new Intent(this, TravelActivity.class);
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        this,
-                        0,
-                        resultIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         mBuilder.setContentIntent(resultPendingIntent);
         mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000});
+
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(001, mBuilder.build());
+    }
 
+    private void showNotification(int i){
+        if(i == 0){
+            binding.titelNoti.setText("เตรียมตัวให้พร้อม");
+            String subTitle = "อีก " + timeToArrive + "จะถึงสถานี \"" + desName + "\" ซึ่งเป็นสถานีปลายทางของคุณ โปรดเตรียมตัวลงจากขบวนรถ";
+            binding.subTitleNoti.setText(subTitle);
+        }else if(i == 1){
+            binding.titelNoti.setText("ถึงสถานีปลายทางแล้ว");
+            String subTitle = "ถึงสถานี \"" + desName + "\" ซึ่งเป็นสถานีปลายทางของคุณ โปรดเลงจากขบวนรถไฟฟ้า";
+            binding.subTitleNoti.setText(subTitle);
+        }
+        binding.modalNoti.setVisibility(View.VISIBLE);
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -204,8 +221,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         public void onClick(View view) {
             if (binding.closeButton == view) {
                 notificationArriveStation();
-                finish();
+                count++;
+//                finish();
+            }else if(binding.agreeButton == view){
+                binding.modalNoti.setVisibility(View.GONE);
             }
         }
     };
+
 }
