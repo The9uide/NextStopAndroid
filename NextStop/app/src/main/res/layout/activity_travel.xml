@@ -145,12 +145,12 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/closeButton"
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/closeButton"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/iconclose" />

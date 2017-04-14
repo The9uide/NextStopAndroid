@@ -1,15 +1,15 @@
 package th.ac.kmitl.it.nextstop.Activity;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -38,6 +38,8 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     private boolean mRequestingLocationUpdates = true;
     private String[] route;
     private StationManager stationManager;
+    private NotificationCompat.Builder mBuilder;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.destinationStation.setText(desName);
         binding.setViewModel(StationList.getStations());
         binding.routeListView.setFocusable(false);
+        binding.closeButton.setOnClickListener(listener);
 
         stationList = StationList.getStations();
         departStation = stationList.getStationFormName(departName);
@@ -109,24 +112,24 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     public void setRouteTravel() {
         String tmp = "";
-        for(String s:route){
-            tmp += " " +s;
+        for (String s : route) {
+            tmp += " " + s;
         }
-        Log.e("Route",tmp);
+        Log.e("Route", tmp);
         if (route.length > 1) {
             binding.nextStationLabel.setText(route[1]);
         } else {
             binding.nextStationLabel.setText(route[0]);
         }
 
-        binding.subEstimateTime.setText("ถัดไปอีก " + (route.length-1) + "ป้าย");
+        binding.subEstimateTime.setText("ถัดไปอีก " + (route.length - 1) + "ป้าย");
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         stationManager = new StationManager(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-        stationManager.setupBaseTime( getIntent().getIntExtra("timeToArrive",0),departStation,destinationStation);
+        stationManager.setupBaseTime(getIntent().getIntExtra("timeToArrive", 0), departStation, destinationStation);
         if (mRequestingLocationUpdates) {
             startLocationUpdates();
             mRequestingLocationUpdates = false;
@@ -159,14 +162,48 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         double longitude = mCurrentLocation.getLongitude();
         stationManager.updateLocation(latitude, longitude);
 
-        route =  stationManager.updateNexttation(route);
+        route = stationManager.updateNexttation(route);
         setRouteTravel();
+        notificationArriveStation();
         binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + stationManager.updateTimeToArrive() + " นาที");
     }
+
+    public void notificationArriveStation() {
+
+        if (mBuilder == null && route.length == 2) {
+            mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.iconnextstaion)
+                    .setContentTitle("เตรียมตัวให้พร้อม!!!")
+                    .setContentText("สถานีต่อไปคือสถานีปลายทาง");
+            Log.e("Notification", "FIRST NOTI");
+            count++;
+        } else if (route.length == 1) {
+            mBuilder.setSmallIcon(R.drawable.iconnextstaion)
+                    .setContentTitle("ถึงสถานีปลายทางแล้ว!!!")
+                    .setContentText("สถานีนี้คือสถานีปลายของท่าน");
+            Log.e("Notification", "SECOND NOTI");
+        }
+
+        Intent resultIntent = new Intent(this, TravelActivity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000});
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(001, mBuilder.build());
+
+    }
+
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             if (binding.closeButton == view) {
+                notificationArriveStation();
                 finish();
             }
         }
