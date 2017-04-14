@@ -60,6 +60,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.routeListView.setFocusable(false);
         binding.closeButton.setOnClickListener(listener);
         binding.agreeButton.setOnClickListener(listener);
+        binding.imageStation.setOnClickListener(listener);
 
         stationList = StationList.getStations();
         departStation = stationList.getStationFormName(departName);
@@ -166,7 +167,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
         route = stationManager.updateNexttation(route);
         setRouteTravel();
-        notificationArriveStation();
+//        notificationArriveStation();
         timeToArrive = stationManager.updateTimeToArrive();
         binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + timeToArrive + " นาที");
     }
@@ -220,11 +221,14 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         @Override
         public void onClick(View view) {
             if (binding.closeButton == view) {
-                notificationArriveStation();
-                count++;
-//                finish();
+//                notificationArriveStation();
+//                count++;
+                finish();
             }else if(binding.agreeButton == view){
                 binding.modalNoti.setVisibility(View.GONE);
+            }else if(binding.imageStation == view){
+                notificationArriveStation();
+                count++;
             }
         }
     };

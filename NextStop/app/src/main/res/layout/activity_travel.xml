@@ -93,6 +93,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/imageStation"
                                 android:layout_width="match_parent"
                                 android:layout_height="193.5dp"
                                 android:scaleType="centerCrop"
