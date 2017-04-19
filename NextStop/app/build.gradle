@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "th.ac.kmitl.it.nextstop"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -39,5 +39,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:8.3.0'
     compile 'com.google.android.gms:play-services-plus:8.3.0'
     compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.android.support:multidex:1.0.0'
     testCompile 'junit:junit:4.12'
 }
