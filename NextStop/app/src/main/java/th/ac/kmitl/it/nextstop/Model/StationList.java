@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.View;
 
 import me.tatarka.bindingcollectionadapter2.BR;
+import me.tatarka.bindingcollectionadapter2.BindingListViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 import th.ac.kmitl.it.nextstop.Activity.DepartSelectActivity;
 import th.ac.kmitl.it.nextstop.Activity.DestinationActivity;
 import th.ac.kmitl.it.nextstop.Activity.LandingActivity;
 import th.ac.kmitl.it.nextstop.Activity.MainActivity;
+import th.ac.kmitl.it.nextstop.Adapter.StationListViewAdapter;
 import th.ac.kmitl.it.nextstop.R;
 
 /**
@@ -31,6 +33,7 @@ public class StationList {
     };
     public final ItemBinding<Station> itemBinding = ItemBinding.of(onItemBind);
     public final ObservableList<Station> items = new ObservableArrayList<>();
+    public BindingListViewAdapter<Station> adapter ;
 
     protected StationList() {
         items.add(new Station("สุวรรณภูมิ", "A1", null, 13.698090, 100.752265));
@@ -41,6 +44,8 @@ public class StationList {
         items.add(new Station("มักกะสัน", "A6", "MRT เพชรบุรี", 13.751017, 100.561346));
         items.add(new Station("ราชปรารภ", "A7", null, 13.755133, 100.541826));
         items.add(new Station("พญาไท", "A8", "BTS พญาไท", 13.756711, 100.534972));
+
+        adapter = new StationListViewAdapter(items.size());
 
     }
 

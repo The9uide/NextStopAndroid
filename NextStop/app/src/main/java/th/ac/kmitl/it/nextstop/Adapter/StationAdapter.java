@@ -35,6 +35,7 @@ public class StationAdapter extends ArrayAdapter<Station> {
         binding = StationrowlayoutBinding.inflate(inflater,parent,false);
         binding.setItem(values[position]);
 
+
         return binding.getRoot();
     }
 
