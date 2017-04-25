@@ -10,6 +10,8 @@ public class Station {
     private String connection;
     private double latitude;
     private double longitude;
+    private String connectionLabel;
+    private String connectionIcon;
 
     public Station(String name, String id, String connection ,double latitude, double longitude){
         this.name = name;
@@ -57,5 +59,21 @@ public class Station {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getConnectionLabel() {
+        return connectionLabel;
+    }
+
+    public void setConnectionLabel(String connectionLabel) {
+        this.connectionLabel = connectionLabel;
+    }
+
+    public String getConnectionIcon() {
+        return connectionIcon;
+    }
+
+    public void setConnectionIcon(String connectionIcon) {
+        this.connectionIcon = connectionIcon;
     }
 }

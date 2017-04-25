@@ -45,7 +45,7 @@
             android:layout_below="@+id/name"
             android:layout_marginTop="5dp"
             android:alpha="0.38"
-            android:text="@{item.connection}"
+            android:text="@{item.connectionLabel}"
             android:textColor="@android:color/black" />
 
         <ImageView
@@ -54,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:src="@{item.connectionIcon}"/>
 
 
     </RelativeLayout>

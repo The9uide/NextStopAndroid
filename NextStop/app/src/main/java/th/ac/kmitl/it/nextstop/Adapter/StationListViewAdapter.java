@@ -32,7 +32,8 @@ public class StationListViewAdapter extends BindingListViewAdapter<Station> {
     @Override
     public void onBindBinding(ViewDataBinding binding, int variableId, int layoutRes, int position, Station item) {
 
-//        item.setConnection("จุดเชื่อมต่อ รถไฟฟ้า " + item.getConnection());
+        item.setConnectionLabel("จุดเชื่อมต่อ รถไฟฟ้า " + item.getConnection());
+        item.setConnectionIcon("iconmrt");
         super.onBindBinding(binding, variableId, layoutRes, position, item);
 
         Log.e("onBindBinding", "variableId: " + variableId + "  layoutRes: " + layoutRes + " at position: " + position);
