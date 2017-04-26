@@ -207,7 +207,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     private void showNotification(int i){
         if(i == 0){
             binding.titelNoti.setText("เตรียมตัวให้พร้อม");
-            String subTitle = "อีก " + timeToArrive + "จะถึงสถานี \"" + desName + "\" ซึ่งเป็นสถานีปลายทางของคุณ โปรดเตรียมตัวลงจากขบวนรถ";
+            String subTitle = "อีก " + timeToArrive + " นาทีจะถึงสถานี \"" + desName + "\" ซึ่งเป็นสถานีปลายทางของคุณ โปรดเตรียมตัวลงจากขบวนรถ";
             binding.subTitleNoti.setText(subTitle);
         }else if(i == 1){
             binding.titelNoti.setText("ถึงสถานีปลายทางแล้ว");
