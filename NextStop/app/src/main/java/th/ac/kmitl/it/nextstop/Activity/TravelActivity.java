@@ -22,6 +22,7 @@ import th.ac.kmitl.it.nextstop.Model.Station;
 import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.Model.StationManager;
 import th.ac.kmitl.it.nextstop.R;
+import th.ac.kmitl.it.nextstop.Service.LocationService;
 import th.ac.kmitl.it.nextstop.databinding.ActivityTravelBinding;
 
 public class TravelActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -138,6 +139,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
             mRequestingLocationUpdates = false;
         }
 
+        Intent intent = new Intent(this, LocationService.class);
+        intent.putExtra("desName",desName);
+        intent.putExtra("departName",departName);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
+
     }
 
     protected void startLocationUpdates() {
@@ -156,7 +163,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-        updateLocation(location);
+//        updateLocation(location);
     }
 
     private void updateLocation(Location location) {
