@@ -27,7 +27,7 @@ public class StationList {
     public final OnItemBind<Station> onItemBind = new OnItemBind<Station>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, Station item) {
-            itemBinding.set(BR.item, item.getConnection() == null ? R.layout.stationrowlayout : R.layout.stationconnectrowlayout);
+            itemBinding.set(BR.item, setLayout(item));
 
         }
     };
@@ -36,7 +36,7 @@ public class StationList {
     public BindingListViewAdapter<Station> adapter ;
 
     protected StationList() {
-        items.add(new Station("สุวรรณภูมิ", "A1", null, 13.698090, 100.752265));
+        items.add(new Station("สุวรรณภูมิ", "A1", "สนามบิน สุวรรณภูมิ", 13.698090, 100.752265));
         items.add(new Station("ลาดกระบัง", "A2", null, 13.727669, 100.748717));
         items.add(new Station("บ้านทับช้าง", "A3", null, 13.732827, 100.691467));
         items.add(new Station("หัวหมาก", "A4", null, 13.737958, 100.645347));
@@ -107,6 +107,24 @@ public class StationList {
             }
         }
         return route;
+    }
+
+    private int setLayout(Station item){
+        if(item.isCurrent()){
+            return R.layout.stationcurrentrowlayout;
+        }
+        else if(item.getConnection() != null){
+            return R.layout.stationconnectrowlayout;
+
+         } else {
+            return R.layout.stationrowlayout;
+        }
+    }
+
+    public void resetCurrentStation(){
+        for(Station x : items){
+            x.setCurrent(false);
+        }
     }
 
 }

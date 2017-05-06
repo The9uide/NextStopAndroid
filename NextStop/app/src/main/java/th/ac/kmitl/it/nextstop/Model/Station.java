@@ -11,7 +11,8 @@ public class Station {
     private double latitude;
     private double longitude;
     private String connectionLabel;
-    private String connectionIcon;
+    private int connectionIcon;
+    private boolean isCurrent;
 
     public Station(String name, String id, String connection ,double latitude, double longitude){
         this.name = name;
@@ -19,6 +20,7 @@ public class Station {
         this.connection = connection;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.isCurrent = false;
     }
 
     public String getName() {
@@ -69,11 +71,19 @@ public class Station {
         this.connectionLabel = connectionLabel;
     }
 
-    public String getConnectionIcon() {
+    public int getConnectionIcon() {
         return connectionIcon;
     }
 
-    public void setConnectionIcon(String connectionIcon) {
+    public void setConnectionIcon(int connectionIcon) {
         this.connectionIcon = connectionIcon;
+    }
+
+    public boolean isCurrent() {
+        return isCurrent;
+    }
+
+    public void setCurrent(boolean current) {
+        isCurrent = current;
     }
 }

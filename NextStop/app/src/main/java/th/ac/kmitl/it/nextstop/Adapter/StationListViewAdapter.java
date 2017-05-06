@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import me.tatarka.bindingcollectionadapter2.BindingListViewAdapter;
 import th.ac.kmitl.it.nextstop.Model.Station;
+import th.ac.kmitl.it.nextstop.R;
 
 /**
  * Created by v-trrata on 4/20/2017.
@@ -35,9 +36,22 @@ public class StationListViewAdapter extends BindingListViewAdapter<Station> {
 
     @Override
     public void onBindBinding(ViewDataBinding binding, int variableId, int layoutRes, int position, Station item) {
+//        item.setId("(" + item.getId() +")");
+        String connection = item.getConnection();
+        if(connection != null){
+            String type = connection.split(" ")[0];
+            if(type.equals("BTS")){
+                item.setConnectionIcon(R.drawable.iconbts);
+                item.setConnectionLabel("จุดเชื่อมต่อ รถไฟฟ้า " + connection);
+            }else if(type.equals("MRT")){
+                item.setConnectionIcon(R.drawable.iconmrt);
+                item.setConnectionLabel("จุดเชื่อมต่อ รถไฟฟ้า " + connection);
+            }else if(type.equals("สนามบิน")){
+                item.setConnectionIcon(R.drawable.iconplane);
+                item.setConnectionLabel("จุดเชื่อมต่อ " + connection);
+            }
 
-        item.setConnectionLabel("จุดเชื่อมต่อ รถไฟฟ้า " + item.getConnection());
-        item.setConnectionIcon("drawable/iconmrt");
+        }
         super.onBindBinding(binding, variableId, layoutRes, position, item);
 
         Log.e("onBindBinding", "variableId: " + variableId + "  layoutRes: " + layoutRes + " at position: " + position);
