@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="th.ac.kmitl.it.nextstop.Model.StationList" />
+            type="th.ac.kmitl.it.nextstop.Model.Route" />
 
     </data>
 
@@ -135,7 +135,8 @@
                         <ListView
                             android:id="@+id/routeListView"
                             android:layout_width="match_parent"
-                            android:layout_height="590dp"
+                            android:layout_height="wrap_content"
+                            android:listSelector="@android:color/transparent"
                             app:itemBinding="@{viewModel.itemBinding}"
                             app:items="@{viewModel.items}"></ListView>
                     </LinearLayout>
@@ -199,21 +200,23 @@
             android:alpha="1"
             android:gravity="center"
             android:visibility="gone">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/black"
-                android:alpha="0.4">
+                android:alpha="0.4"
+                android:background="@color/black">
 
             </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="280.0dp"
                 android:layout_height="310.5dp"
+                android:layout_centerInParent="true"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:weightSum="4"
                 android:elevation="16dp"
-                android:layout_centerInParent="true">
+                android:orientation="vertical"
+                android:weightSum="4">
 
                 <TextView
                     android:id="@+id/titelNoti"

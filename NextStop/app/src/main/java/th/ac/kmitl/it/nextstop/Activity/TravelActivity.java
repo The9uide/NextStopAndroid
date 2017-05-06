@@ -8,8 +8,11 @@ import android.location.Location;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -18,6 +21,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import th.ac.kmitl.it.nextstop.Model.JSONAsyncTask;
+import th.ac.kmitl.it.nextstop.Model.Route;
 import th.ac.kmitl.it.nextstop.Model.Station;
 import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.Model.StationManager;
@@ -42,6 +46,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     private NotificationCompat.Builder mBuilder;
     private int timeToArrive;
     private int count = 0;
+    private Route routeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +62,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding = DataBindingUtil.setContentView(this, R.layout.activity_travel);
         binding.nextStationLabel.setText(departName);
         binding.destinationStation.setText(desName);
-        binding.setViewModel(StationList.getStations());
+//        binding.setViewModel(StationList.getStations());
         binding.routeListView.setFocusable(false);
         binding.closeButton.setOnClickListener(listener);
         binding.agreeButton.setOnClickListener(listener);
         binding.imageStation.setOnClickListener(listener);
+
 
         stationList = StationList.getStations();
         departStation = stationList.getStationFormName(departName);
@@ -82,6 +88,10 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
 
         route = stationList.getRouteTravel(departStation, destinationStation);
+        routeList = new Route();
+        routeList.addStation("กำลังคำนวนเส้นทาง");
+        binding.setViewModel(routeList);
+        setListViewHeight();
         setRouteTravel();
         setTimeToArrive();
 
@@ -111,7 +121,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     public void updateArriveTime(int time) {
-        binding.estimateTime.setText(time + " นาที");
+        binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + time + " นาที");
     }
 
     public void setRouteTravel() {
@@ -127,6 +137,8 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         }
 
         binding.subEstimateTime.setText("ถัดไปอีก " + (route.length - 1) + "ป้าย");
+        routeList.updateRoute(route);
+        setListViewHeight();
     }
 
     @Override
@@ -140,9 +152,9 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         }
 
         Intent intent = new Intent(this, LocationService.class);
-        intent.putExtra("desName",desName);
-        intent.putExtra("departName",departName);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.putExtra("desName", desName);
+        intent.putExtra("departName", departName);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
 
     }
@@ -163,7 +175,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-//        updateLocation(location);
+        updateLocation(location);
     }
 
     private void updateLocation(Location location) {
@@ -176,12 +188,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         setRouteTravel();
 //        notificationArriveStation();
         timeToArrive = stationManager.updateTimeToArrive();
-        binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + timeToArrive + " นาที");
+        updateArriveTime(timeToArrive);
     }
 
     public void notificationArriveStation() {
 
-        if (mBuilder == null && route.length == 2||count == 1) {
+        if (mBuilder == null && route.length == 2 || count == 1) {
             mBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.iconnextstaion)
                     .setContentTitle("เตรียมตัวให้พร้อม!!!")
@@ -200,7 +212,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
-    private void notifyNotification(){
+    private void notifyNotification() {
         Intent resultIntent = new Intent(this, TravelActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -211,12 +223,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         mNotifyMgr.notify(001, mBuilder.build());
     }
 
-    private void showNotification(int i){
-        if(i == 0){
+    private void showNotification(int i) {
+        if (i == 0) {
             binding.titelNoti.setText("เตรียมตัวให้พร้อม");
             String subTitle = "อีก " + timeToArrive + " นาทีจะถึงสถานี \"" + desName + "\" ซึ่งเป็นสถานีปลายทางของคุณ โปรดเตรียมตัวลงจากขบวนรถ";
             binding.subTitleNoti.setText(subTitle);
-        }else if(i == 1){
+        } else if (i == 1) {
             binding.titelNoti.setText("ถึงสถานีปลายทางแล้ว");
             String subTitle = "ถึงสถานี \"" + desName + "\" ซึ่งเป็นสถานีปลายทางของคุณ โปรดเลงจากขบวนรถไฟฟ้า";
             binding.subTitleNoti.setText(subTitle);
@@ -231,13 +243,18 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 //                notificationArriveStation();
 //                count++;
                 finish();
-            }else if(binding.agreeButton == view){
+            } else if (binding.agreeButton == view) {
                 binding.modalNoti.setVisibility(View.GONE);
-            }else if(binding.imageStation == view){
+            } else if (binding.imageStation == view) {
                 notificationArriveStation();
                 count++;
             }
         }
     };
 
+    void setListViewHeight() {
+        ListView listview = binding.routeListView;
+        ViewGroup.LayoutParams params = listview.getLayoutParams();
+        params.height = (int) (routeList.items.size() * getResources().getDimension(R.dimen.row_route_height));
+    }
 }

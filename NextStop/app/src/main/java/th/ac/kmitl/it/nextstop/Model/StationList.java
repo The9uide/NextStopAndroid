@@ -33,7 +33,7 @@ public class StationList {
     };
     public final ItemBinding<Station> itemBinding = ItemBinding.of(onItemBind);
     public final ObservableList<Station> items = new ObservableArrayList<>();
-    public BindingListViewAdapter<Station> adapter ;
+    public BindingListViewAdapter<Station> adapter;
 
     protected StationList() {
         items.add(new Station("สุวรรณภูมิ", "A1", "สนามบิน สุวรรณภูมิ", 13.698090, 100.752265));
@@ -93,7 +93,8 @@ public class StationList {
     public String[] getRouteTravel(Station departStation, Station desStation) {
         int depart = getIndexWithStation(departStation);
         int destination = getIndexWithStation(desStation);
-        String[] route = new String[Math.abs(depart - destination)+1];
+        String[] route = new String[Math.abs(depart - destination) + 1];
+
         int index = 0;
         if (depart < destination) {
             for (int i = depart; i <= destination; i++) {
@@ -109,20 +110,19 @@ public class StationList {
         return route;
     }
 
-    private int setLayout(Station item){
-        if(item.isCurrent()){
+    private int setLayout(Station item) {
+        if (item.isCurrent()) {
             return R.layout.stationcurrentrowlayout;
-        }
-        else if(item.getConnection() != null){
+        } else if (item.getConnection() != null) {
             return R.layout.stationconnectrowlayout;
 
-         } else {
+        } else {
             return R.layout.stationrowlayout;
         }
     }
 
-    public void resetCurrentStation(){
-        for(Station x : items){
+    public void resetCurrentStation() {
+        for (Station x : items) {
             x.setCurrent(false);
         }
     }

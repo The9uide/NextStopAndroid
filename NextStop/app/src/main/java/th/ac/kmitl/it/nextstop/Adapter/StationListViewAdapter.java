@@ -39,15 +39,15 @@ public class StationListViewAdapter extends BindingListViewAdapter<Station> {
     public void onBindBinding(ViewDataBinding binding, int variableId, int layoutRes, int position, Station item) {
 //        item.setId("(" + item.getId() +")");
         String connection = item.getConnection();
-        if(connection != null){
+        if (connection != null) {
             String type = connection.split(" ")[0];
-            if(type.equals("BTS")){
+            if (type.equals("BTS")) {
                 item.setConnectionIcon(R.drawable.iconbts);
                 item.setConnectionLabel("จุดเชื่อมต่อ รถไฟฟ้า " + connection);
-            }else if(type.equals("MRT")){
+            } else if (type.equals("MRT")) {
                 item.setConnectionIcon(R.drawable.iconmrt);
                 item.setConnectionLabel("จุดเชื่อมต่อ รถไฟฟ้า " + connection);
-            }else if(type.equals("สนามบิน")){
+            } else if (type.equals("สนามบิน")) {
                 item.setConnectionIcon(R.drawable.iconplane);
                 item.setConnectionLabel("จุดเชื่อมต่อ " + connection);
             }
@@ -84,8 +84,7 @@ public class StationListViewAdapter extends BindingListViewAdapter<Station> {
 
     @Override
     public void setItemIsEnabled(@Nullable ItemIsEnabled<? super Station> itemIsEnabled) {
-        Log.e("Disable Current Station","True");
-        super.setItemIsEnabled(new BindingListViewAdapter.ItemIsEnabled<Station>(){
+        super.setItemIsEnabled(new BindingListViewAdapter.ItemIsEnabled<Station>() {
 
             @Override
             public boolean isEnabled(int position, Station item) {
