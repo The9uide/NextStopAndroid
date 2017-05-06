@@ -23,6 +23,8 @@ public class DepartSelectActivity extends AppCompatActivity {
     }
 
     private void initInstances(){
+
+        StationList.getStations().resetCurrentStation();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_depart_select);
         binding.setViewModel(StationList.getStations());
         Intent intent = getIntent();
@@ -43,6 +45,7 @@ public class DepartSelectActivity extends AppCompatActivity {
                     finish();
                 }
             }
+
         });
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {

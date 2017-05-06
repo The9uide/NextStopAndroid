@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -79,5 +80,17 @@ public class StationListViewAdapter extends BindingListViewAdapter<Station> {
     @BindingAdapter("android:src")
     public static void setImageResource(ImageView imageView, int resource) {
         imageView.setImageResource(resource);
+    }
+
+    @Override
+    public void setItemIsEnabled(@Nullable ItemIsEnabled<? super Station> itemIsEnabled) {
+        Log.e("Disable Current Station","True");
+        super.setItemIsEnabled(new BindingListViewAdapter.ItemIsEnabled<Station>(){
+
+            @Override
+            public boolean isEnabled(int position, Station item) {
+                return !item.isCurrent();
+            }
+        });
     }
 }
