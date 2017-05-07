@@ -43,7 +43,7 @@
                         android:layout_weight="1"
                         android:alpha="0.7"
                         android:gravity="bottom"
-                        android:text="ตอนนี้คุณอยู่สถานี (ɔ◔‿◔)ɔ ♥"
+                        android:text="ตอนนี้คุณอยู่สถานี"
                         android:textColor="@color/white"
                         android:textSize="14.0sp" />
 
