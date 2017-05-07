@@ -16,6 +16,7 @@ import th.ac.kmitl.it.nextstop.Activity.LandingActivity;
 import th.ac.kmitl.it.nextstop.Activity.MainActivity;
 import th.ac.kmitl.it.nextstop.Adapter.StationListViewAdapter;
 import th.ac.kmitl.it.nextstop.R;
+import th.ac.kmitl.it.nextstop.Service.LocationReceiver;
 
 /**
  * Created by v-trrata on 2/19/2017.
@@ -34,6 +35,11 @@ public class StationList {
     public final ItemBinding<Station> itemBinding = ItemBinding.of(onItemBind);
     public final ObservableList<Station> items = new ObservableArrayList<>();
     public BindingListViewAdapter<Station> adapter;
+    public Station destinationStation;
+    public Station departStation;
+    public int timeToArrive;
+    public LocationReceiver locationReceiver;
+    public  int countNoti;
 
     protected StationList() {
         items.add(new Station("สุวรรณภูมิ", "A1", "สนามบิน สุวรรณภูมิ", 13.698090, 100.752265));
@@ -46,7 +52,6 @@ public class StationList {
         items.add(new Station("พญาไท", "A8", "BTS พญาไท", 13.756711, 100.534972));
 
         adapter = new StationListViewAdapter(items.size());
-
     }
 
     public static StationList getStations() {
@@ -126,5 +131,11 @@ public class StationList {
             x.setCurrent(false);
         }
     }
-
+    public void setTravelDetail(Station departStation, Station destinationStation,int timeToArrive,LocationReceiver locationReceiver){
+        this.departStation = departStation;
+        this.destinationStation = destinationStation;
+        this.timeToArrive = timeToArrive;
+        this.locationReceiver = locationReceiver;
+        this.countNoti = 0;
+    }
 }

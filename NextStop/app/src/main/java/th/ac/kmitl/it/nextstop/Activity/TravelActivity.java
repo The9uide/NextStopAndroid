@@ -70,10 +70,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.agreeButton.setOnClickListener(listener);
         binding.imageStation.setOnClickListener(listener);
 
+        setupServiceReceiver();
 
         stationList = StationList.getStations();
         departStation = stationList.getStationFormName(departName);
         destinationStation = stationList.getStationFormName(desName);
+
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -88,16 +90,17 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
                 .setInterval(10 * 1000)
                 .setFastestInterval(1 * 1000);
 
-
+        stationList.setTravelDetail(departStation,destinationStation,timeToArrive,mLocationReceiver);
         route = stationList.getRouteTravel(departStation, destinationStation);
         routeList = new Route();
         routeList.addStation("กำลังคำนวนเส้นทาง");
         binding.setViewModel(routeList);
 
-        setupServiceReceiver();
+
         setListViewHeight();
         setRouteTravel();
         setTimeToArrive();
+
 
     }
 
@@ -156,13 +159,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         }
 
 
-        Intent intent = new Intent(this, LocationService.class);
-        intent.putExtra("desName", desName);
-        intent.putExtra("departName", departName);
-        intent.putExtra("receiver",mLocationReceiver);
-        //PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, new Intent(this, LocationService.class).putExtra("desName","ha"), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, new Intent(this, LocationService.class), PendingIntent.FLAG_UPDATE_CURRENT);
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
 
     }

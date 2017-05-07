@@ -2,6 +2,8 @@ package th.ac.kmitl.it.nextstop.Service;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -11,15 +13,18 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationResult;
 
+import th.ac.kmitl.it.nextstop.Activity.TravelActivity;
 import th.ac.kmitl.it.nextstop.Model.Station;
 import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.Model.StationManager;
+import th.ac.kmitl.it.nextstop.R;
 
 import static th.ac.kmitl.it.nextstop.R.id.timeToArrive;
 
@@ -34,34 +39,32 @@ public class LocationService extends IntentService {
     private Location mCurrentLocation;
     private StationManager stationManager;
     private String[] route;
+    private NotificationCompat.Builder mBuilder;
+    private int count;
 
 
     public LocationService() {
         super(".Service.Location");
         stationList = StationList.getStations();
-
+        Log.e("Location in Service", "Create Object");
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
-        if (LocationResult.hasResult(intent)||true) {
+        if (LocationResult.hasResult(intent)) {
             LocationResult locationResult = LocationResult.extractResult(intent);
             final Location location = locationResult.getLastLocation();
 
-            Log.e("Location in Service", "get location " + location.toString());
-            String departName = intent.getStringExtra("departName");
-            String desName = intent.getStringExtra("desName");
-            LocationReceiver rec = intent.getParcelableExtra("receiver");
+            departStation = stationList.departStation;
+            destinationStation = stationList.destinationStation;
+            Log.e("Location in Service", departStation + " : "+ destinationStation);
+            LocationReceiver rec = stationList.locationReceiver;
             int time = intent.getIntExtra("time",20);
 
-
-            departStation = stationList.getStationFormName(departName);
-            destinationStation = stationList.getStationFormName(desName);
-            Log.e("Location in Service", "Updating");
             if (location != null) {
                 Log.e("Location in Service", "Latitude : " + location.getLatitude() + ", Longitude : " + location.getLongitude());
-//                updateLocation(location, rec, time);
+                updateLocation(location, rec, time);
             }
 
         }
@@ -78,12 +81,44 @@ public class LocationService extends IntentService {
         route = stationList.getRouteTravel(nearestStation, destinationStation);
         int timeToArrive = stationManager.updateTimeToArrive();
 
-        Log.e("UpdateLocationService",time + " : " + route.toString());
+        notificationArriveStation();
 
         Bundle bundle = new Bundle();
         bundle.putInt("time", timeToArrive);
         bundle.putStringArray("route",route);
         rec.send(Activity.RESULT_OK, bundle);
 
+    }
+
+    public void notificationArriveStation() {
+
+        if (mBuilder == null && route.length == 2 && stationList.countNoti == 0) {
+            mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.iconnextstaion)
+                    .setContentTitle("เตรียมตัวให้พร้อม!!!")
+                    .setContentText("สถานีต่อไปคือสถานีปลายทาง");
+            Log.e("Notification", "FIRST NOTI");
+            stationList.countNoti++;
+            notifyNotification();
+        } else if (route.length == 1 && stationList.countNoti == 1) {
+            mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.iconnextstaion)
+                    .setContentTitle("ถึงสถานีปลายทางแล้ว!!!")
+                    .setContentText("สถานีนี้คือสถานีปลายของท่าน");
+            Log.e("Notification", "SECOND NOTI");
+            stationList.countNoti++;
+            notifyNotification();
+        }
+    }
+
+    private void notifyNotification() {
+        Intent resultIntent = new Intent(this, TravelActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000});
+
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(001, mBuilder.build());
     }
 }
