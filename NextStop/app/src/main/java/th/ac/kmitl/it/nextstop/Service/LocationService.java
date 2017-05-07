@@ -1,5 +1,6 @@
 package th.ac.kmitl.it.nextstop.Service;
 
+import android.app.Activity;
 import android.app.IntentService;
 import android.app.Service;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationResult;
 
+import th.ac.kmitl.it.nextstop.Model.Station;
 import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.Model.StationManager;
 
@@ -25,9 +27,10 @@ import static th.ac.kmitl.it.nextstop.R.id.timeToArrive;
  * Created by The9uide on 15-Apr-17.
  */
 
-public class LocationService extends IntentService
-{
+public class LocationService extends IntentService {
     private final StationList stationList;
+    private Station departStation;
+    private Station destinationStation;
     private Location mCurrentLocation;
     private StationManager stationManager;
     private String[] route;
@@ -36,53 +39,51 @@ public class LocationService extends IntentService
     public LocationService() {
         super(".Service.Location");
         stationList = StationList.getStations();
-//        departStation = stationList.getStationFormName(departName);
-//        destinationStation = stationList.getStationFormName(desName);
+
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if (LocationResult.hasResult(intent)) {
+
+        if (LocationResult.hasResult(intent)||true) {
             LocationResult locationResult = LocationResult.extractResult(intent);
-            Location location = locationResult.getLastLocation();
+            final Location location = locationResult.getLastLocation();
+
+            Log.e("Location in Service", "get location " + location.toString());
+            String departName = intent.getStringExtra("departName");
+            String desName = intent.getStringExtra("desName");
+            LocationReceiver rec = intent.getParcelableExtra("receiver");
+            int time = intent.getIntExtra("time",20);
+
+
+            departStation = stationList.getStationFormName(departName);
+            destinationStation = stationList.getStationFormName(desName);
+            Log.e("Location in Service", "Updating");
             if (location != null) {
-                Log.e("Location in Service","Latitude : " + location.getLatitude() +", Longitude : " + location.getLongitude());
-                
+                Log.e("Location in Service", "Latitude : " + location.getLatitude() + ", Longitude : " + location.getLongitude());
+//                updateLocation(location, rec, time);
             }
+
         }
-//        intent.getStringExtra("")
     }
-    private void updateLocation(Location location) {
+
+    private void updateLocation(Location location, LocationReceiver rec, int time) {
         mCurrentLocation = location;
-        
+
         double latitude = mCurrentLocation.getLatitude();
         double longitude = mCurrentLocation.getLongitude();
-        stationManager.updateLocation(latitude, longitude);
+        stationManager = new StationManager(latitude,longitude);
+        stationManager.setupBaseTime(time,departStation,destinationStation);
+        Station nearestStation = stationManager.getNearestStation(latitude, longitude);
+        route = stationList.getRouteTravel(nearestStation, destinationStation);
+        int timeToArrive = stationManager.updateTimeToArrive();
 
-        route = stationManager.updateNexttation(route);
-//        setRouteTravel();
-//        notificationArriveStation();
-//        timeToArrive = stationManager.updateTimeToArrive();
-//        binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + timeToArrive + " นาที");
-    }
+        Log.e("UpdateLocationService",time + " : " + route.toString());
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return super.onBind(intent);
+        Bundle bundle = new Bundle();
+        bundle.putInt("time", timeToArrive);
+        bundle.putStringArray("route",route);
+        rec.send(Activity.RESULT_OK, bundle);
+
     }
-//    public void setRouteTravel() {
-//        String tmp = "";
-//        for (String s : route) {
-//            tmp += " " + s;
-//        }
-//        Log.e("Route", tmp);
-//        if (route.length > 1) {
-//            binding.nextStationLabel.setText(route[1]);
-//        } else {
-//            binding.nextStationLabel.setText(route[0]);
-//        }
-//
-//        binding.subEstimateTime.setText("ถัดไปอีก " + (route.length - 1) + "ป้าย");
-//    }
 }

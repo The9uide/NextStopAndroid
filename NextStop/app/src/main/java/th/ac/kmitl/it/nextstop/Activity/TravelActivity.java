@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import th.ac.kmitl.it.nextstop.Model.Station;
 import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.Model.StationManager;
 import th.ac.kmitl.it.nextstop.R;
+import th.ac.kmitl.it.nextstop.Service.LocationReceiver;
 import th.ac.kmitl.it.nextstop.Service.LocationService;
 import th.ac.kmitl.it.nextstop.databinding.ActivityTravelBinding;
 
@@ -47,6 +49,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     private int timeToArrive;
     private int count = 0;
     private Route routeList;
+    private LocationReceiver mLocationReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,6 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding = DataBindingUtil.setContentView(this, R.layout.activity_travel);
         binding.nextStationLabel.setText(departName);
         binding.destinationStation.setText(desName);
-//        binding.setViewModel(StationList.getStations());
         binding.routeListView.setFocusable(false);
         binding.closeButton.setOnClickListener(listener);
         binding.agreeButton.setOnClickListener(listener);
@@ -91,6 +93,8 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         routeList = new Route();
         routeList.addStation("กำลังคำนวนเส้นทาง");
         binding.setViewModel(routeList);
+
+        setupServiceReceiver();
         setListViewHeight();
         setRouteTravel();
         setTimeToArrive();
@@ -151,16 +155,20 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
             mRequestingLocationUpdates = false;
         }
 
+
         Intent intent = new Intent(this, LocationService.class);
         intent.putExtra("desName", desName);
         intent.putExtra("departName", departName);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.putExtra("receiver",mLocationReceiver);
+        //PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, new Intent(this, LocationService.class).putExtra("desName","ha"), PendingIntent.FLAG_UPDATE_CURRENT);
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
 
     }
 
     protected void startLocationUpdates() {
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+//        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
     @Override
@@ -175,7 +183,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-        updateLocation(location);
+//        updateLocation(location);
     }
 
     private void updateLocation(Location location) {
@@ -186,9 +194,21 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
         route = stationManager.updateNexttation(route);
         setRouteTravel();
-//        notificationArriveStation();
         timeToArrive = stationManager.updateTimeToArrive();
         updateArriveTime(timeToArrive);
+    }
+
+    public void setupServiceReceiver() {
+        mLocationReceiver = new LocationReceiver(new Handler());
+        // This is where we specify what happens when data is received from the service
+        mLocationReceiver.setReceiver(new LocationReceiver.Receiver() {
+            @Override
+            public void onReceiveResult(int resultCode, Bundle resultData) {
+                if (resultCode == RESULT_OK) {
+                    String resultValue = resultData.getString("resultValue");
+                }
+            }
+        });
     }
 
     public void notificationArriveStation() {
