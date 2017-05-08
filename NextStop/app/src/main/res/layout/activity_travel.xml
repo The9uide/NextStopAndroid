@@ -100,7 +100,7 @@
                                 android:src="@drawable/makkasan" />
 
                             <TextView
-                                android:id="@+id/destinationStation"
+                                android:id="@+id/nextStationTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="24dp"
@@ -117,7 +117,7 @@
                                 android:layout_marginLeft="24.0dp"
                                 android:layout_marginTop="7dp"
                                 android:alpha="0.38"
-                                android:text="สถานีปลายทาง"
+                                android:text="สถานีต่อไป"
                                 android:textColor="@color/black" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -129,7 +129,7 @@
                         android:layout_marginLeft="8.5dp"
                         android:layout_marginRight="8.5dp"
                         android:background="@color/white"
-                        android:elevation="4dp"
+                        android:elevation="2dp"
                         android:orientation="vertical">
 
                         <ListView

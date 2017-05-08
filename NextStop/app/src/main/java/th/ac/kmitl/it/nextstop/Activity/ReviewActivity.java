@@ -38,7 +38,9 @@ public class ReviewActivity extends AppCompatActivity {
         departStation = stationList.getStationFormName(departName);
         destinationStation = stationList.getStationFormName(desName);
 
+        int imageResource = stationList.getImageResourceFormName(desName);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_review);
+        binding.stationImage.setImageResource(imageResource);
         binding.departButton.setText(departName + " ▼");
         binding.departButton.setOnClickListener(listener);
         binding.startButton.setOnClickListener(listener);

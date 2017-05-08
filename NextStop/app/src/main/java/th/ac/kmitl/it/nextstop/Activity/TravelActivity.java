@@ -21,6 +21,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.Arrays;
+
 import th.ac.kmitl.it.nextstop.Model.JSONAsyncTask;
 import th.ac.kmitl.it.nextstop.Model.Route;
 import th.ac.kmitl.it.nextstop.Model.Station;
@@ -63,12 +65,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         desName = intent.getStringExtra("desName");
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_travel);
-        binding.nextStationLabel.setText(departName);
-        binding.destinationStation.setText(desName);
         binding.routeListView.setFocusable(false);
         binding.closeButton.setOnClickListener(listener);
         binding.agreeButton.setOnClickListener(listener);
         binding.imageStation.setOnClickListener(listener);
+
+        binding.imageStation.setImageResource(R.drawable.a1);
 
         setupServiceReceiver();
 
@@ -90,7 +92,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
                 .setInterval(10 * 1000)
                 .setFastestInterval(1 * 1000);
 
-        stationList.setTravelDetail(departStation,destinationStation,timeToArrive,mLocationReceiver);
+        stationList.setTravelDetail(departStation, destinationStation, timeToArrive, mLocationReceiver);
         route = stationList.getRouteTravel(departStation, destinationStation);
         routeList = new Route();
         routeList.addStation("กำลังคำนวนเส้นทาง");
@@ -100,8 +102,6 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         setListViewHeight();
         setRouteTravel();
         setTimeToArrive();
-
-
     }
 
     private void setTimeToArrive() {
@@ -133,18 +133,22 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     public void setRouteTravel() {
         String tmp = "";
+        String[] routeListview = null;
         for (String s : route) {
             tmp += " " + s;
         }
         Log.e("Route", tmp);
         if (route.length > 1) {
-            binding.nextStationLabel.setText(route[1]);
+            setNextStationDetail(route[1]);
+            if (route.length > 2) {
+                routeListview = Arrays.copyOfRange(route, 2, route.length);
+            }
         } else {
-            binding.nextStationLabel.setText(route[0]);
+            setNextStationDetail(route[0]);
         }
 
         binding.subEstimateTime.setText("ถัดไปอีก " + (route.length - 1) + "ป้าย");
-        routeList.updateRoute(route);
+        routeList.updateRoute(routeListview);
         setListViewHeight();
     }
 
@@ -269,9 +273,16 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         }
     };
 
-    void setListViewHeight() {
+    private void setListViewHeight() {
         ListView listview = binding.routeListView;
         ViewGroup.LayoutParams params = listview.getLayoutParams();
         params.height = (int) (routeList.items.size() * getResources().getDimension(R.dimen.row_route_height));
+    }
+
+    private void setNextStationDetail(String name) {
+        int imageResource = stationList.getImageResourceFormName(name);
+        binding.imageStation.setImageResource(imageResource);
+        binding.nextStationTitle.setText(name);
+        binding.nextStationLabel.setText(name);
     }
 }

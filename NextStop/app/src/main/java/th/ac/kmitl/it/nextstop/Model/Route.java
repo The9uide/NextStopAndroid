@@ -15,26 +15,18 @@ public class Route {
     public final ObservableList<String> items = new ObservableArrayList<>();
     public final ItemBinding<String> itemBinding = ItemBinding.of(BR.item, R.layout.row_route);
 
-    public void mockStation(){
-        items.add("Station1");
-        items.add("Station2");
-        items.add("Station3");
-        items.add("Station4");
-        items.add("Station5");
-        items.add("Station6");
-        items.add("Station7");
-        items.add("Station8");
-    }
-
-    public void addStation(String name){
+    public void addStation(String name) {
         items.add(name);
-
     }
-    public void updateRoute(String[] route){
+
+    public void updateRoute(String[] route) {
         items.clear();
-        for(String name : route){
-            items.add(name);
+        if (route != null) {
+            for (String name : route) {
+                items.add(name);
+            }
         }
+
 
     }
 }

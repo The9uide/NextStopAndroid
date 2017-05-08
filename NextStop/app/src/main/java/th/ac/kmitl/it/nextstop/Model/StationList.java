@@ -138,4 +138,26 @@ public class StationList {
         this.locationReceiver = locationReceiver;
         this.countNoti = 0;
     }
+
+    public int getImageResourceFormName(String name){
+        Log.e("getImageResource",name);
+        if (name.equals("สุวรรณภูมิ")) {
+            return R.drawable.a1;
+        } else if (name.equals("ลาดกระบัง")) {
+            return R.drawable.a2;
+        } else if (name.equals("บ้านทับช้าง")) {
+            return R.drawable.a3;
+        } else if (name.equals("หัวหมาก")) {
+            return R.drawable.a4;
+        } else if (name.equals("รามคำแหง")) {
+            return R.drawable.a5;
+        } else if (name.equals("มักกะสัน")) {
+            return R.drawable.a6;
+        } else if (name.equals("ราชปรารภ")) {
+            return R.drawable.a7;
+        } else if (name.equals("พญาไท")) {
+            return R.drawable.a8;
+        }
+        return R.drawable.a1;
+    }
 }
