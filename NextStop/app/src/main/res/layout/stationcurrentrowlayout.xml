@@ -47,7 +47,7 @@
             android:layout_marginTop="5dp"
             android:alpha="1"
             android:text="สถานีปัจจุบันของคุณ"
-            android:textColor="@color/chrome_yellow" />
+            android:textColor="@color/dodger_blue" />
 
         <ImageView
             android:id="@+id/item_info"
