@@ -184,7 +184,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-//        updateLocation(location);
+        updateLocation(location);
     }
 
     private void updateLocation(Location location) {
@@ -193,7 +193,9 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         double longitude = mCurrentLocation.getLongitude();
         stationManager.updateLocation(latitude, longitude);
 
-        route = stationManager.updateNexttation(route);
+        Station nearestStation = stationManager.getNearestStation(latitude, longitude);
+        route = stationList.getRouteTravel(nearestStation, destinationStation);
+
         setRouteTravel();
         timeToArrive = stationManager.updateTimeToArrive();
         updateArriveTime(timeToArrive);
