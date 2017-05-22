@@ -280,5 +280,82 @@
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/modalCancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="1"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.4"
+                android:background="@color/black">
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="280.0dp"
+                android:layout_height="156.0dp"
+                android:layout_centerInParent="true"
+                android:background="@color/white"
+                android:elevation="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:alpha="0.87"
+                    android:text="ยกเลิกการแจ้งเตือน ?"
+                    android:textColor="@color/black"
+                    android:textSize="20.0sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="231.91dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="10dp"
+                    android:alpha="0.87"
+                    android:text="ต้องการยกเลิกการแจ้งเตือน ใช่หรือไม่"
+                    android:textColor="@color/black"
+                    android:textSize="14.0sp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/cancelYesButton"
+                        android:layout_width="48.5dp"
+                        android:layout_height="36.0dp"
+                        android:gravity="center"
+                        android:text="ใช่"
+                        android:textColor="@color/chrome_yellow"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toStartOf="@+id/cancelNoButton"
+                        android:layout_marginBottom="10dp"/>
+                    <Button
+                        android:id="@+id/cancelNoButton"
+                        android:layout_width="48.5dp"
+                        android:layout_height="36.0dp"
+                        android:text="ไม่ใช่"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="10dp"
+                        android:textSize="14.0sp"
+                        android:textColor="@color/white"
+                        android:background="@color/chrome_yellow"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
     </RelativeLayout>
 </layout>
