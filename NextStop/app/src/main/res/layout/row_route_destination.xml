@@ -19,7 +19,7 @@
             android:layout_width="29dp"
             android:layout_height="72dp"
             android:layout_marginLeft="24dp"
-            android:src="@drawable/route_path" />
+            android:src="@drawable/route_final" />
 
         <TextView
             android:id="@+id/name"

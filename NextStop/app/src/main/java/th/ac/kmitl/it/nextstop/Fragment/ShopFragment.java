@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import th.ac.kmitl.it.nextstop.R;
+
 /**
  * Created by The9uide on 13-May-17.
  */

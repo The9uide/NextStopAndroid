@@ -13,6 +13,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -40,8 +41,6 @@ public class LocationService extends IntentService {
     private StationManager stationManager;
     private String[] route;
     private NotificationCompat.Builder mBuilder;
-    private int count;
-
 
     public LocationService() {
         super(".Service.Location");
@@ -61,7 +60,13 @@ public class LocationService extends IntentService {
             Log.e("Location in Service", departStation + " : "+ destinationStation);
             LocationReceiver rec = stationList.locationReceiver;
             int time = intent.getIntExtra("time",20);
-
+            try{
+                location.getLatitude();
+                location.getLongitude();
+            }catch (Exception e){
+                Log.e("Location in Service","Cant get LOCATION");
+                stopSelf();
+            }
             if (location != null) {
                 Log.e("Location in Service", "Latitude : " + location.getLatitude() + ", Longitude : " + location.getLongitude());
                 updateLocation(location, rec, time);

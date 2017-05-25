@@ -52,6 +52,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     private int count = 0;
     private Route routeList;
     private LocationReceiver mLocationReceiver;
+    private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,9 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.closeButton.setOnClickListener(listener);
         binding.agreeButton.setOnClickListener(listener);
         binding.imageStation.setOnClickListener(listener);
+        binding.modalCancelBackground.setOnClickListener(listener);
+        binding.cancelYesButton.setOnClickListener(listener);
+        binding.cancelNoButton.setOnClickListener(listener);
 
         binding.imageStation.setImageResource(R.drawable.a1);
 
@@ -95,7 +99,6 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         stationList.setTravelDetail(departStation, destinationStation, timeToArrive, mLocationReceiver);
         route = stationList.getRouteTravel(departStation, destinationStation);
         routeList = new Route();
-        routeList.addStation("กำลังคำนวนเส้นทาง");
         binding.setViewModel(routeList);
 
 
@@ -163,7 +166,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         }
 
 
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, new Intent(this, LocationService.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getService(this, 0, new Intent(this, LocationService.class), PendingIntent.FLAG_UPDATE_CURRENT);
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
 
     }
@@ -263,14 +266,20 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         @Override
         public void onClick(View view) {
             if (binding.closeButton == view) {
-//                notificationArriveStation();
-//                count++;
-                finish();
+//                finish();
+                binding.modalCancel.setVisibility(view.VISIBLE);
             } else if (binding.agreeButton == view) {
                 binding.modalNoti.setVisibility(View.GONE);
             } else if (binding.imageStation == view) {
-                notificationArriveStation();
-                count++;
+//                notificationArriveStation();
+//                count++;
+                Intent intent = new Intent(TravelActivity.this, DetailStationActivity.class);
+                startActivity(intent);
+            } else if (binding.cancelNoButton == view || binding.modalCancelBackground == view) {
+                binding.modalCancel.setVisibility(view.GONE);
+            } else if (binding.cancelYesButton == view) {
+                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, pendingIntent);
+                finish();
             }
         }
     };

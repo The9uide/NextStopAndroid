@@ -14,7 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import th.ac.kmitl.it.it56070048.testtabbar3.databinding.ActivityDetailStationBinding;
+import th.ac.kmitl.it.nextstop.Fragment.ShopFragment;
+import th.ac.kmitl.it.nextstop.R;
+import th.ac.kmitl.it.nextstop.databinding.ActivityDetailStationBinding;
 
 public class DetailStationActivity extends AppCompatActivity {
     private ActivityDetailStationBinding binding;
@@ -24,7 +26,7 @@ public class DetailStationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_detail_station);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_station);
 
         viewPager = binding.viewpager;
         createViewPager(viewPager);
@@ -72,9 +74,9 @@ public class DetailStationActivity extends AppCompatActivity {
 
     private void createViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new Fragment1(), "Tab 1");
-        adapter.addFrag(new Fragment1(), "Tab 2");
-        adapter.addFrag(new Fragment1(), "Tab 3");
+        adapter.addFrag(new ShopFragment(), "Tab 1");
+        adapter.addFrag(new ShopFragment(), "Tab 2");
+        adapter.addFrag(new ShopFragment(), "Tab 3");
         viewPager.setAdapter(adapter);
     }
     class ViewPagerAdapter extends FragmentPagerAdapter {
