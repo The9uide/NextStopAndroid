@@ -158,7 +158,11 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     @Override
     public void onConnected(Bundle bundle) {
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        stationManager = new StationManager(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        try {
+            stationManager = new StationManager(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        }catch (Exception e){
+            stationManager = new StationManager(0,0);
+        }
         stationManager.setupBaseTime(getIntent().getIntExtra("timeToArrive", 0), departStation, destinationStation);
         if (mRequestingLocationUpdates) {
             startLocationUpdates();
