@@ -138,7 +138,6 @@
                             android:layout_height="wrap_content"
                             android:divider="@null"
                             android:dividerHeight="0dp"
-                            android:listSelector="@android:color/transparent"
                             app:itemBinding="@{viewModel.itemBinding}"
                             app:items="@{viewModel.items}"></ListView>
                     </LinearLayout>
