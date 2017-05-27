@@ -24,6 +24,23 @@
                 android:src="@drawable/makkasan" />
 
             <LinearLayout
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20.0dp"
+                    android:layout_height="16.0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="29.5dp"
+                    android:layout_marginRight="30.5dp"
+                    android:src="@drawable/back_arrow" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="128dp"
@@ -31,6 +48,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/stationName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="มักกะสัน"
@@ -40,6 +58,7 @@
                     android:layout_marginTop="24.0dp"/>
 
                 <TextView
+                    android:id="@+id/timeToArrive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="อีก 2 ป้าย (30 นาที)"
@@ -50,6 +69,7 @@
                     android:alpha="0.7"/>
 
                 <TextView
+                    android:id="@+id/doorOpen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ประตูรถจะเปิดทางด้านขวา"

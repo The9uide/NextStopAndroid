@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,13 +135,32 @@ public class DetailStationActivity extends AppCompatActivity {
         anim.start();
     }
     private void animateImage(){
+        final int imageHeight = binding.stationImage.getMeasuredHeight();
+        final float nameMargin = getResources().getDimension(R.dimen.dp80) - getResources().getDimension(R.dimen.dp16);
+
         ValueAnimator anim = ValueAnimator.ofFloat(binding.stationImage.getAlpha(), 0);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float val = (float) valueAnimator.getAnimatedValue();
                 binding.stationImage.setAlpha(val);
-//                binding.stationImage.setVisibility(View.GONE);
+                binding.timeToArrive.setAlpha(val);
+                binding.doorOpen.setAlpha(val);
+
+//                binding.stationName.
+
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                double leftMargin =  getResources().getDimension(R.dimen.dp16) + nameMargin * (1-val);
+                lp.setMargins((int) leftMargin,(int) getResources().getDimension(R.dimen.dp24), 0, 0);
+
+                binding.stationName.setLayoutParams(lp);
+
+                int height = (int) (val * imageHeight);
+                ViewGroup.LayoutParams layoutParams = binding.stationImage.getLayoutParams();
+                layoutParams.height = height;
+                binding.stationImage.setLayoutParams(layoutParams);
+
+
             }
         });
         anim.addListener(new AnimatorListenerAdapter()
@@ -148,8 +168,7 @@ public class DetailStationActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation)
             {
-                binding.stationImage.setVisibility(View.GONE);
-                // done
+                binding.stationImage.setVisibility(View.GONE);// done
             }
         });
         anim.setDuration(1000);
