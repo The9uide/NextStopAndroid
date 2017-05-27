@@ -65,6 +65,7 @@ public class LocationService extends IntentService {
                 location.getLongitude();
             }catch (Exception e){
                 Log.e("Location in Service","Cant get LOCATION");
+                return;
             }
             if (location != null) {
                 Log.e("Location in Service", "Latitude : " + location.getLatitude() + ", Longitude : " + location.getLongitude());

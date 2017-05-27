@@ -10,11 +10,58 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <RelativeLayout
+            android:id="@+id/actionImageBar"
             android:layout_width="match_parent"
-            android:layout_height="193.5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/makkasan" />
+            android:layout_height="wrap_content"
+            android:background="@color/dodger_blue">
+
+            <ImageView
+                android:id="@+id/stationImage"
+                android:layout_width="match_parent"
+                android:layout_height="193.5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/makkasan" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:layout_below="@id/stationImage"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="มักกะสัน"
+                    android:textSize="24.0sp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="16.0dp"
+                    android:layout_marginTop="24.0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="อีก 2 ป้าย (30 นาที)"
+                    android:textColor="@color/white"
+                    android:textSize="14.0sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:alpha="0.7"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ประตูรถจะเปิดทางด้านขวา"
+                    android:textColor="@color/white"
+                    android:textSize="14.0sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:alpha="0.7"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -40,7 +87,6 @@
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="60dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </android.support.design.widget.CoordinatorLayout>

@@ -12,6 +12,10 @@ import th.ac.kmitl.it.nextstop.R;
  */
 
 public class ShopList {
-    public final ItemBinding<Shop> itemBinding = ItemBinding.of(BR.item, R.layout.stationcurrentrowlayout);
+    public final ItemBinding<Shop> itemBinding = ItemBinding.of(BR.item, R.layout.row_shop);
     public final ObservableList<Shop> items = new ObservableArrayList<>();
+
+    public void addShop(Shop shop){
+        items.add(shop);
+    }
 }
