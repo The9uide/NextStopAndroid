@@ -56,6 +56,7 @@ public class DetailStationActivity extends AppCompatActivity {
         binding.stationName.setText(stationName);
         int imageResource = stationList.getImageResourceFormName(stationName);
         binding.stationImage.setImageResource(imageResource);
+        binding.backButton.setOnClickListener(listener);
 
         viewPager = binding.viewpager;
         createViewPager(viewPager);
@@ -154,6 +155,16 @@ public class DetailStationActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (binding.backButton == view) {
+                finish();
+            }
+
+        }
+    };
 
     private void animateActionBar(){
         ValueAnimator anim = ValueAnimator.ofInt(binding.actionImageBar.getMeasuredHeight(), (int) getResources().getDimension(R.dimen.row_route_height));

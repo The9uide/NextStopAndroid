@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -172,8 +173,8 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         try {
             stationManager = new StationManager(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-        }catch (Exception e){
-            stationManager = new StationManager(0,0);
+        } catch (Exception e) {
+            stationManager = new StationManager(0, 0);
         }
         stationManager.setupBaseTime(getIntent().getIntExtra("timeToArrive", 0), departStation, destinationStation);
         if (mRequestingLocationUpdates) {
@@ -282,18 +283,19 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         @Override
         public void onClick(View view) {
             if (binding.closeButton == view) {
-//                finish();
                 binding.modalCancel.setVisibility(view.VISIBLE);
+
             } else if (binding.agreeButton == view) {
                 binding.modalNoti.setVisibility(View.GONE);
+
             } else if (binding.imageStation == view) {
-//                notificationArriveStation();
-//                count++;
                 Intent intent = new Intent(TravelActivity.this, DetailStationActivity.class);
                 intent.putExtra("station", binding.nextStationLabel.getText());
                 startActivity(intent);
+
             } else if (binding.cancelNoButton == view || binding.modalCancelBackground == view) {
                 binding.modalCancel.setVisibility(view.GONE);
+
             } else if (binding.cancelYesButton == view) {
                 LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, pendingIntent);
                 finish();
@@ -314,5 +316,14 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.nextStationLabel.setText(name);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // do something
+            binding.modalCancel.setVisibility(View.VISIBLE);
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
