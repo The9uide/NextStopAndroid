@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:itemBinding="@{viewModel.itemBinding}"
-            app:items="@{viewModel.items}"></ListView>
+            app:items="@{viewModel.items}"
+            app:adapter="@{viewModel.adapter}"></ListView>
 
     </LinearLayout>
 </layout>

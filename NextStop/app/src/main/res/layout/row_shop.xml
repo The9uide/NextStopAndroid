@@ -19,10 +19,11 @@
 
         <ImageView
             android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_margin="16dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/makkasan" />
+            android:src="@{item.image}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,15 +35,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:alpha="0.87"
                 android:gravity="center_vertical"
-                android:text="@{item.name}" />
+                android:text="@{item.name}"
+                android:textSize="16.0sp" />
 
             <TextView
                 android:id="@+id/shopCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{item.category}" />
+                android:alpha="0.38"
+                android:text="@{item.category}"
+                android:textSize="14.0sp" />
 
         </LinearLayout>
     </LinearLayout>

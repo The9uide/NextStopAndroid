@@ -2,6 +2,7 @@ package th.ac.kmitl.it.nextstop.Fragment;
 
 
 import android.databinding.DataBindingUtil;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -35,14 +36,16 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String url = getString(R.string.foursquare_api);
         FoursquareAsyncTask task = new FoursquareAsyncTask(this);
-        task.execute(getString(R.string.foursquare_api));
+        task.execute(url);
     }
 
     public void initInstance() {
 
         shopList = new ShopList();
         binding.setViewModel(shopList);
+        shopList.addShop(new Shop("กำลังหาสถานที่บริเวณโดยรอบ","โปรดรอสักครู่...", BitmapFactory.decodeResource(getContext().getResources(), R.drawable.iconlandingpage) ));
 
         if (shops != null){
             setShop(shops);
