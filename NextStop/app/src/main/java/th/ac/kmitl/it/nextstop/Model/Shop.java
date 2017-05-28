@@ -1,5 +1,7 @@
 package th.ac.kmitl.it.nextstop.Model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by v-trrata on 5/26/2017.
  */
@@ -7,9 +9,9 @@ package th.ac.kmitl.it.nextstop.Model;
 public class Shop {
     private String name;
     private String category;
-    private String image;
+    private Bitmap image;
 
-    public Shop(String name, String category, String image) {
+    public Shop(String name, String category, Bitmap image) {
         this.name = name;
         this.category = category;
         this.image = image;
@@ -31,11 +33,11 @@ public class Shop {
         this.category = category;
     }
 
-    public String getImage() {
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 }

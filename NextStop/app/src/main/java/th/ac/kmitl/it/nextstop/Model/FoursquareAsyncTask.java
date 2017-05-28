@@ -1,5 +1,7 @@
 package th.ac.kmitl.it.nextstop.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -17,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import th.ac.kmitl.it.nextstop.Activity.ReviewActivity;
@@ -36,13 +39,14 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
 
     private String serverResponse;
     private ShopFragment shopFragment;
+    private List<Shop> shops;
 
     public FoursquareAsyncTask(ShopFragment fragment) {
         this.shopFragment = fragment;
     }
 
     public FoursquareAsyncTask() {
-        List<Shop> 
+
     }
 
     @Override
@@ -55,6 +59,8 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
         try {
 
             URL urlObj = new URL(urls[0]);
+            Log.e("Response", "" + urlObj);
+            shops = new ArrayList<>();
 
             HttpURLConnection urlConnection = (HttpURLConnection) urlObj.openConnection();
 
@@ -63,7 +69,8 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
 
             if (status == HttpURLConnection.HTTP_OK) {
                 serverResponse = readStream(urlConnection.getInputStream());
-                Log.e("Response", "" + serverResponse);
+
+                Log.e("Response Foursquare", "" + serverResponse);
 
                 JsonParser parser = new JsonParser();
                 JsonElement mJson = parser.parse(serverResponse);
@@ -73,9 +80,21 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
                 for (int index = 0; index < venues.size(); index++) {
                     try {
                         Venue venue = venues.get(index).getVenue();
-                        Log.e("Response", "DataRaw :" + venue.getName());
                         Item__ photo = venue.getPhotos().getGroups().get(0).getItems().get(0);
-                        Log.e("Response", "PhotoRaw :" + photo.getPrefix() + "200x200" + photo.getSuffix());
+                        String name = venue.getName();
+                        String category = venue.getCategories().get(0).getName();
+                        String url = photo.getPrefix() + "200x200" + photo.getSuffix();
+                        Bitmap image = BitmapFactory.decodeStream((InputStream)new URL(url).getContent());
+
+                        shops.add(new Shop(name,category,image));
+
+                        Log.e("Response", "DataRaw :" + name);
+                        Log.e("Response", "DataRaw :" + category);
+                        Log.e("Response", "PhotoRaw :" + url);
+                        Log.e("Response", "ListRaw Size:" + shops.size()+"");
+
+
+
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -92,13 +111,8 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
 
 //        Log.e("Response", "" + serverResponse);
         if (shopFragment != null) {
-            shopFragment.setShop(new Shop("ร้านขายของ1", "ร้านสะดวกซื้อ", "makkasan"));
-            shopFragment.setShop(new Shop("ร้านขายของ2", "ร้านสะดวกซื้อ", "makkasan"));
-            shopFragment.setShop(new Shop("ร้านขายของ3", "ร้านสะดวกซื้อ", "makkasan"));
-            shopFragment.setShop(new Shop("ร้านขายของ4", "ร้านสะดวกซื้อ", "makkasan"));
-            shopFragment.setShop(new Shop("ร้านขายของ5", "ร้านสะดวกซื้อ", "makkasan"));
-            shopFragment.setShop(new Shop("ร้านขายของ6", "ร้านสะดวกซื้อ", "makkasan"));
-
+            shopFragment.setShop(shops);
+            Log.e("Response", "ListRaw addshops:" + shops.size()+"");
         } else if (shopFragment != null) {
 //            shopFragment.updateArriveTime(resultTime);
 
@@ -129,5 +143,7 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
         }
         return response.toString();
     }
+
+
 
 }

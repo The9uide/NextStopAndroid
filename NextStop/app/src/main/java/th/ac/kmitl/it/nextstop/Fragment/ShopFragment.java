@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import th.ac.kmitl.it.nextstop.Model.FoursquareAsyncTask;
 import th.ac.kmitl.it.nextstop.Model.JSONAsyncTask;
 import th.ac.kmitl.it.nextstop.Model.Shop;
@@ -24,6 +26,7 @@ public class ShopFragment extends Fragment {
 
     private FragmentDetailBinding binding;
     private ShopList shopList;
+    private List<Shop> shops;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -32,6 +35,8 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FoursquareAsyncTask task = new FoursquareAsyncTask(this);
+        task.execute(getString(R.string.foursquare_api));
     }
 
     public void initInstance() {
@@ -39,10 +44,11 @@ public class ShopFragment extends Fragment {
         shopList = new ShopList();
         binding.setViewModel(shopList);
 
-        String url = getString(R.string.url_api) + "&origin=" + 0 + "&destination=" + 0;
+        if (shops != null){
+            setShop(shops);
+        }
 
-        FoursquareAsyncTask task = new FoursquareAsyncTask(this);
-        task.execute(url);
+        String url = getString(R.string.url_api) + "&origin=" + 0 + "&destination=" + 0;
     }
 
 
@@ -58,8 +64,8 @@ public class ShopFragment extends Fragment {
     }
 
 
-    public void setShop(Shop shop) {
-        shopList.addShop(shop);
-
+    public void setShop(List<Shop> shops) {
+        this.shops = shops;
+        shopList.addList(shops);
     }
 }

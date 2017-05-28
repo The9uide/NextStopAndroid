@@ -60,10 +60,8 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
         binding.yesButton.setOnClickListener(listener);
         binding.noButton.setOnClickListener(listener);
 
-        FoursquareAsyncTask task = new FoursquareAsyncTask();
-        task.execute(getString(R.string.foursquare_api));
-
-
+//        FoursquareAsyncTask task = new FoursquareAsyncTask();
+//        task.execute(getString(R.string.foursquare_api));
     }
 
     @Override
@@ -76,7 +74,6 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
                 } else {
                     Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show();
                 }
-
                 break;
         }
     }

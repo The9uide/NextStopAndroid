@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import th.ac.kmitl.it.nextstop.Fragment.ShopFragment;
+import th.ac.kmitl.it.nextstop.Model.FoursquareAsyncTask;
 import th.ac.kmitl.it.nextstop.R;
 import th.ac.kmitl.it.nextstop.databinding.ActivityDetailStationBinding;
 
@@ -61,6 +62,8 @@ public class DetailStationActivity extends AppCompatActivity {
             }
         });
         createTabIcons();
+        FoursquareAsyncTask task = new FoursquareAsyncTask();
+        task.execute(getString(R.string.foursquare_api));
     }
 
     private void createTabIcons() {

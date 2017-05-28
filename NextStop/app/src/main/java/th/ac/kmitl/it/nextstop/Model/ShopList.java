@@ -3,6 +3,8 @@ package th.ac.kmitl.it.nextstop.Model;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
+import java.util.List;
+
 import me.tatarka.bindingcollectionadapter2.BR;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import th.ac.kmitl.it.nextstop.R;
@@ -17,5 +19,10 @@ public class ShopList {
 
     public void addShop(Shop shop){
         items.add(shop);
+    }
+
+    public void addList(List<Shop> shops){
+        items.clear();
+        items.addAll(shops);
     }
 }

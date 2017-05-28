@@ -2,6 +2,7 @@ package th.ac.kmitl.it.nextstop.Adapter;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ViewDataBinding;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -80,6 +81,11 @@ public class StationListViewAdapter extends BindingListViewAdapter<Station> {
     @BindingAdapter("android:src")
     public static void setImageResource(ImageView imageView, int resource) {
         imageView.setImageResource(resource);
+    }
+
+    @BindingAdapter("android:src")
+    public static void setImageBitmap(ImageView imageView, Bitmap resource) {
+        imageView.setImageBitmap(resource);
     }
 
     @Override
