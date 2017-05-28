@@ -116,7 +116,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
 
         setListViewHeight();
-        setRouteTravel();
+        setRouteTravel(route);
         setTimeToArrive();
     }
 
@@ -147,7 +147,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + time + " นาที");
     }
 
-    public void setRouteTravel() {
+    public void setRouteTravel(String[] route) {
         String tmp = "";
         String[] routeListview = null;
         for (String s : route) {
@@ -204,22 +204,22 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-        updateLocation(location);
+//        updateLocation(location);
     }
 
-    private void updateLocation(Location location) {
-        mCurrentLocation = location;
-        double latitude = mCurrentLocation.getLatitude();
-        double longitude = mCurrentLocation.getLongitude();
-        stationManager.updateLocation(latitude, longitude);
-
-        Station nearestStation = stationManager.getNearestStation(latitude, longitude);
-        route = stationList.getRouteTravel(nearestStation, destinationStation);
-
-        setRouteTravel();
-        timeToArrive = stationManager.updateTimeToArrive();
-        updateArriveTime(timeToArrive);
-    }
+//    private void updateLocation(Location location) {
+//        mCurrentLocation = location;
+//        double latitude = mCurrentLocation.getLatitude();
+//        double longitude = mCurrentLocation.getLongitude();
+//        stationManager.updateLocation(latitude, longitude);
+//
+//        Station nearestStation = stationManager.getNearestStation(latitude, longitude);
+//        route = stationList.getRouteTravel(nearestStation, destinationStation);
+//
+//        setRouteTravel(route);
+//        timeToArrive = stationManager.updateTimeToArrive();
+//        updateArriveTime(timeToArrive);
+//    }
 
     public void setupServiceReceiver() {
         mLocationReceiver = new LocationReceiver(new Handler());
@@ -228,43 +228,50 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
             @Override
             public void onReceiveResult(int resultCode, Bundle resultData) {
                 if (resultCode == RESULT_OK) {
-                    String resultValue = resultData.getString("resultValue");
+                    String[] route = resultData.getStringArray("route");
+                    int time = resultData.getInt("time");
+                    setRouteTravel(route);
+                    updateArriveTime(time);
+
+                } else if (resultCode == RESULT_FIRST_USER){
+                    int resultValue = resultData.getInt("notification");
+                    showNotification(resultValue);
                 }
             }
         });
     }
 
-    public void notificationArriveStation() {
+//    public void notificationArriveStation() {
+//
+//        if (mBuilder == null && route.length == 2 || count == 1) {
+//            mBuilder = new NotificationCompat.Builder(this)
+//                    .setSmallIcon(R.drawable.iconnextstaion)
+//                    .setContentTitle("เตรียมตัวให้พร้อม!!!")
+//                    .setContentText("สถานีต่อไปคือสถานีปลายทาง");
+//            Log.e("Notification", "FIRST NOTI");
+//            showNotification(0);
+//            notifyNotification();
+//        } else if (route.length == 1 || count == 2) {
+//            mBuilder = new NotificationCompat.Builder(this)
+//                    .setSmallIcon(R.drawable.iconnextstaion)
+//                    .setContentTitle("ถึงสถานีปลายทางแล้ว!!!")
+//                    .setContentText("สถานีนี้คือสถานีปลายของท่าน");
+//            Log.e("Notification", "SECOND NOTI");
+//            showNotification(1);
+//            notifyNotification();
+//        }
+//    }
 
-        if (mBuilder == null && route.length == 2 || count == 1) {
-            mBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.drawable.iconnextstaion)
-                    .setContentTitle("เตรียมตัวให้พร้อม!!!")
-                    .setContentText("สถานีต่อไปคือสถานีปลายทาง");
-            Log.e("Notification", "FIRST NOTI");
-            showNotification(0);
-            notifyNotification();
-        } else if (route.length == 1 || count == 2) {
-            mBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.drawable.iconnextstaion)
-                    .setContentTitle("ถึงสถานีปลายทางแล้ว!!!")
-                    .setContentText("สถานีนี้คือสถานีปลายของท่าน");
-            Log.e("Notification", "SECOND NOTI");
-            showNotification(1);
-            notifyNotification();
-        }
-    }
-
-    private void notifyNotification() {
-        Intent resultIntent = new Intent(this, TravelActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        mBuilder.setContentIntent(resultPendingIntent);
-        mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000});
-
-        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(001, mBuilder.build());
-    }
+//    private void notifyNotification() {
+//        Intent resultIntent = new Intent(this, TravelActivity.class);
+//        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        mBuilder.setContentIntent(resultPendingIntent);
+//        mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000});
+//
+//        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        mNotifyMgr.notify(001, mBuilder.build());
+//    }
 
     private void showNotification(int i) {
         if (i == 0) {

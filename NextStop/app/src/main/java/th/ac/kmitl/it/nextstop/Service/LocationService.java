@@ -41,11 +41,12 @@ public class LocationService extends IntentService {
     private StationManager stationManager;
     private String[] route;
     private NotificationCompat.Builder mBuilder;
+    private LocationReceiver rec;
 
     public LocationService() {
         super(".Service.Location");
         stationList = StationList.getStations();
-        Log.e("Location in Service", "Create Object");
+//        Log.e("Location in Service", "Create Object");
     }
 
     @Override
@@ -57,8 +58,8 @@ public class LocationService extends IntentService {
 
             departStation = stationList.departStation;
             destinationStation = stationList.destinationStation;
-            Log.e("Location in Service", departStation + " : "+ destinationStation);
-            LocationReceiver rec = stationList.locationReceiver;
+//            Log.e("Location in Service", departStation + " : "+ destinationStation);
+            rec = stationList.locationReceiver;
             int time = intent.getIntExtra("time",20);
             try{
                 location.getLatitude();
@@ -106,6 +107,9 @@ public class LocationService extends IntentService {
                     .setContentText("สถานีต่อไปคือสถานีปลายทาง");
             Log.e("Notification", "FIRST NOTI");
             stationList.countNoti++;
+            Bundle bundle = new Bundle();
+            bundle.putInt("notification", 0);
+            rec.send(Activity.RESULT_FIRST_USER,bundle);
             notifyNotification();
         } else if (route.length == 1 && stationList.countNoti == 1) {
             mBuilder = new NotificationCompat.Builder(this)
@@ -114,6 +118,9 @@ public class LocationService extends IntentService {
                     .setContentText("สถานีนี้คือสถานีปลายของท่าน");
             Log.e("Notification", "SECOND NOTI");
             stationList.countNoti++;
+            Bundle bundle = new Bundle();
+            bundle.putInt("notification", 1);
+            rec.send(Activity.RESULT_FIRST_USER,bundle);
             notifyNotification();
         }
     }
