@@ -86,9 +86,9 @@ public class StationManager {
     }
 
     public int updateTimeToArrive() {
-        double currentDistance = getDistance(destinationStation,this.latitude,this.longitude);
-        Log.e("Time",baseTime + " " + currentDistance + " " + totalDistance);
-        int time = (int) (baseTime * currentDistance / totalDistance );
+        double currentDistance = getDistance(destinationStation, this.latitude, this.longitude);
+        Log.e("Time", baseTime + " " + currentDistance + " " + totalDistance);
+        int time = (int) (baseTime * currentDistance / totalDistance);
         return time;
     }
 

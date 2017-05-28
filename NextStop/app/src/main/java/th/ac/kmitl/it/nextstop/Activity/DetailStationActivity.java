@@ -3,6 +3,7 @@ package th.ac.kmitl.it.nextstop.Activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -20,20 +22,40 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import th.ac.kmitl.it.nextstop.Fragment.FoodFragment;
+import th.ac.kmitl.it.nextstop.Fragment.OtherFragment;
 import th.ac.kmitl.it.nextstop.Fragment.ShopFragment;
 import th.ac.kmitl.it.nextstop.Model.FoursquareAsyncTask;
+import th.ac.kmitl.it.nextstop.Model.Station;
+import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.R;
 import th.ac.kmitl.it.nextstop.databinding.ActivityDetailStationBinding;
+
+import static th.ac.kmitl.it.nextstop.R.id.stationList;
 
 public class DetailStationActivity extends AppCompatActivity {
     private ActivityDetailStationBinding binding;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Station station;
+    private String stationName;
+    private StationList stationList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        stationName = intent.getStringExtra("station");
+        stationList = StationList.getStations();
+        Log.e("getImageResource",stationName);
+
+        station = stationList.getStationFormName(stationName);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_station);
+        binding.stationName.setText(stationName);
+        int imageResource = stationList.getImageResourceFormName(stationName);
+        binding.stationImage.setImageResource(imageResource);
 
         viewPager = binding.viewpager;
         createViewPager(viewPager);
@@ -62,8 +84,6 @@ public class DetailStationActivity extends AppCompatActivity {
             }
         });
         createTabIcons();
-        FoursquareAsyncTask task = new FoursquareAsyncTask();
-        task.execute(getString(R.string.foursquare_api));
     }
 
     private void createTabIcons() {
@@ -86,9 +106,23 @@ public class DetailStationActivity extends AppCompatActivity {
 
     private void createViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new ShopFragment(), "Tab 1");
-        adapter.addFrag(new ShopFragment(), "Tab 2");
-        adapter.addFrag(new ShopFragment(), "Tab 3");
+
+        ShopFragment tab1 = new ShopFragment();
+        FoodFragment tab2 = new FoodFragment();
+
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("ll", station.getLatitude()+","+station.getLongitude());
+
+        Bundle bundle2 = new Bundle();
+        bundle2.putString("ll", station.getLatitude()+","+station.getLongitude());
+
+        tab1.setArguments(bundle1);
+        tab2.setArguments(bundle2);
+
+        adapter.addFrag(tab1, "Tab 1");
+        adapter.addFrag(tab2, "Tab 2");
+
+        adapter.addFrag(new OtherFragment(), "Tab 3");
         viewPager.setAdapter(adapter);
     }
 

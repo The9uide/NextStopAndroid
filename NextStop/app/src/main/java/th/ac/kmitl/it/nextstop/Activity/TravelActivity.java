@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -75,6 +76,17 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.cancelNoButton.setOnClickListener(listener);
 
         binding.imageStation.setImageResource(R.drawable.a1);
+
+        binding.routeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(TravelActivity.this, DetailStationActivity.class);
+                intent.putExtra("station", routeList.items.get(position));
+                startActivity(intent);
+
+            }
+        });
 
         setupServiceReceiver();
 
@@ -278,6 +290,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 //                notificationArriveStation();
 //                count++;
                 Intent intent = new Intent(TravelActivity.this, DetailStationActivity.class);
+                intent.putExtra("station", binding.nextStationLabel.getText());
                 startActivity(intent);
             } else if (binding.cancelNoButton == view || binding.modalCancelBackground == view) {
                 binding.modalCancel.setVisibility(view.GONE);
@@ -300,4 +313,6 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.nextStationTitle.setText(name);
         binding.nextStationLabel.setText(name);
     }
+
+
 }

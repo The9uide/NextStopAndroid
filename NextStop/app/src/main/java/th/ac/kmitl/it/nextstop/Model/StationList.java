@@ -140,7 +140,6 @@ public class StationList {
     }
 
     public int getImageResourceFormName(String name){
-        Log.e("getImageResource",name);
         if (name.equals("สุวรรณภูมิ")) {
             return R.drawable.a1;
         } else if (name.equals("ลาดกระบัง")) {

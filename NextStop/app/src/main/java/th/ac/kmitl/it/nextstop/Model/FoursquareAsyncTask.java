@@ -24,6 +24,7 @@ import java.util.List;
 
 import th.ac.kmitl.it.nextstop.Activity.ReviewActivity;
 import th.ac.kmitl.it.nextstop.Activity.TravelActivity;
+import th.ac.kmitl.it.nextstop.Fragment.FoodFragment;
 import th.ac.kmitl.it.nextstop.Fragment.ShopFragment;
 import th.ac.kmitl.it.nextstop.Model.FoursquareModel.Foursquare;
 import th.ac.kmitl.it.nextstop.Model.FoursquareModel.Item;
@@ -39,10 +40,15 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
 
     private String serverResponse;
     private ShopFragment shopFragment;
+    private FoodFragment foodFragment;
     private List<Shop> shops;
 
     public FoursquareAsyncTask(ShopFragment fragment) {
         this.shopFragment = fragment;
+    }
+
+    public FoursquareAsyncTask(FoodFragment fragment) {
+        this.foodFragment = fragment;
     }
 
     public FoursquareAsyncTask() {
@@ -85,8 +91,8 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
                         String category = venue.getCategories().get(0).getName();
                         String url = photo.getPrefix() + "200x200" + photo.getSuffix();
                         Bitmap image = BitmapFactory.decodeStream((InputStream)new URL(url).getContent());
-
-                        shops.add(new Shop(name,category,image));
+                        Shop shop = new Shop(name,category,image);
+                        shops.add(shop);
 
                         Log.e("Response", "DataRaw :" + name);
                         Log.e("Response", "DataRaw :" + category);
@@ -108,16 +114,10 @@ public class FoursquareAsyncTask extends AsyncTask<String, Void, Boolean> {
     }
 
     protected void onPostExecute(Boolean result) {
-
-//        Log.e("Response", "" + serverResponse);
         if (shopFragment != null) {
             shopFragment.setShop(shops);
-            Log.e("Response", "ListRaw addshops:" + shops.size()+"");
-        } else if (shopFragment != null) {
-//            shopFragment.updateArriveTime(resultTime);
-
-        } else if (shopFragment != null) {
-//            Log.e("Distance to NextStation", resultDistance + "");
+        } else if (foodFragment != null) {
+            foodFragment.setShop(shops);
         }
     }
 

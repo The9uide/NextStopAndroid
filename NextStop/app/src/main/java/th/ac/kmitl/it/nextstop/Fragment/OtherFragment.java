@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import th.ac.kmitl.it.nextstop.Model.FoursquareAsyncTask;
-import th.ac.kmitl.it.nextstop.Model.JSONAsyncTask;
 import th.ac.kmitl.it.nextstop.Model.Shop;
 import th.ac.kmitl.it.nextstop.Model.ShopList;
 import th.ac.kmitl.it.nextstop.R;
@@ -23,25 +22,25 @@ import th.ac.kmitl.it.nextstop.databinding.FragmentDetailBinding;
  * Created by The9uide on 13-May-17.
  */
 
-public class ShopFragment extends Fragment {
+public class OtherFragment extends Fragment {
 
     private FragmentDetailBinding binding;
     private ShopList shopList;
     private List<Shop> shops;
     private String lalo;
 
-    public ShopFragment() {
+    public OtherFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("Shop Create", "Create Class!!!!!");
-        String ll = this.getArguments().getString("ll");
-        String url = getString(R.string.foursquare_api) + "&ll=" + ll + "&section=shops";
-        FoursquareAsyncTask task = new FoursquareAsyncTask(this);
-        task.execute(url);
+        Log.e("Other Create", "Create Class!!!!!");
+//        String ll = this.getArguments().getString("ll");
+//        String url = getString(R.string.foursquare_api) + "&ll=" + ll + "&section=shops";
+//        FoursquareAsyncTask task = new FoursquareAsyncTask(this);
+//        task.execute(url);
     }
 
     public void initInstance() {

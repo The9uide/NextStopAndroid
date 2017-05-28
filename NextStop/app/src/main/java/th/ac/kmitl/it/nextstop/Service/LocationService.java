@@ -63,14 +63,16 @@ public class LocationService extends IntentService {
             try{
                 location.getLatitude();
                 location.getLongitude();
+
+                if (location != null) {
+                    Log.e("Location in Service", "Latitude : " + location.getLatitude() + ", Longitude : " + location.getLongitude());
+                    updateLocation(location, rec, time);
+                }
             }catch (Exception e){
                 Log.e("Location in Service","Cant get LOCATION");
                 return;
             }
-            if (location != null) {
-                Log.e("Location in Service", "Latitude : " + location.getLatitude() + ", Longitude : " + location.getLongitude());
-                updateLocation(location, rec, time);
-            }
+
 
         }
     }
