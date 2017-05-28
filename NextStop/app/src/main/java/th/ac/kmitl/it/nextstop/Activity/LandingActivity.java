@@ -18,6 +18,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import th.ac.kmitl.it.nextstop.Fragment.ShopFragment;
+import th.ac.kmitl.it.nextstop.Model.FoursquareAsyncTask;
 import th.ac.kmitl.it.nextstop.Model.Station;
 import th.ac.kmitl.it.nextstop.Model.StationManager;
 import th.ac.kmitl.it.nextstop.R;
@@ -57,6 +59,11 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
 
         binding.yesButton.setOnClickListener(listener);
         binding.noButton.setOnClickListener(listener);
+
+        FoursquareAsyncTask task = new FoursquareAsyncTask();
+        task.execute(getString(R.string.foursquare_api));
+
+
     }
 
     @Override

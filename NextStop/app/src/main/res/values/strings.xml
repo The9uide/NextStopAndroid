@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="app_name">NextStop</string>
+    <string name="foursquare_api">https://api.foursquare.com/v2/venues/explore?v=20170528&amp;radius=1000&amp;limit=15&amp;locale=th&amp;client_id=FWVMNLYZSB2JLYLXCRCDQHPYMKDHJGBFX5T25W32YMKUH3XV&amp;client_secret=LRH1D4QK5RDRRT34DFXMUII1EOSOXS0WXMRTU4MM2YH3ULZG&amp;venuePhotos=1&amp;sortByDistance=1&amp;ll=13.7310605,100.7810115&amp;section=shops</string>
     <string name="url_api">https://maps.googleapis.com/maps/api/directions/json?mode=transit&amp;transit_mode=subway&amp;key=AIzaSyDJeJe29vIwfDDZ75g1MCtPWVZklhukzQY</string>
 </resources>
 

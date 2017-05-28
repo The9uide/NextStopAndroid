@@ -131,7 +131,7 @@ public class DetailStationActivity extends AppCompatActivity {
 //                binding.stationImage.setVisibility(View.GONE);
             }
         });
-        anim.setDuration(1000);
+        anim.setDuration(500);
         anim.start();
     }
     private void animateImage(){
@@ -146,8 +146,6 @@ public class DetailStationActivity extends AppCompatActivity {
                 binding.stationImage.setAlpha(val);
                 binding.timeToArrive.setAlpha(val);
                 binding.doorOpen.setAlpha(val);
-
-//                binding.stationName.
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 double leftMargin =  getResources().getDimension(R.dimen.dp16) + nameMargin * (1-val);
@@ -171,7 +169,7 @@ public class DetailStationActivity extends AppCompatActivity {
                 binding.stationImage.setVisibility(View.GONE);// done
             }
         });
-        anim.setDuration(1000);
+        anim.setDuration(500);
         anim.start();
     }
 
