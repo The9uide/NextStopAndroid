@@ -317,10 +317,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void setNextStationDetail(String name) {
-        int imageResource = stationList.getImageResourceFormName(name);
-        binding.imageStation.setImageResource(imageResource);
-        binding.nextStationTitle.setText(name);
-        binding.nextStationLabel.setText(name);
+        if(name != null){
+            int imageResource = stationList.getImageResourceFormName(name);
+            binding.imageStation.setImageResource(imageResource);
+            binding.nextStationTitle.setText(name);
+            binding.nextStationLabel.setText(name);
+        }
     }
 
     @Override
