@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import th.ac.kmitl.it.nextstop.Model.FoursquareAsyncTask;
@@ -37,21 +38,23 @@ public class OtherFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("Other Create", "Create Class!!!!!");
-//        String ll = this.getArguments().getString("ll");
 //        String url = getString(R.string.foursquare_api) + "&ll=" + ll + "&section=shops";
 //        FoursquareAsyncTask task = new FoursquareAsyncTask(this);
 //        task.execute(url);
+
     }
 
     public void initInstance() {
 
         shopList = new ShopList();
         binding.setViewModel(shopList);
-        shopList.addShop(new Shop("กำลังหาสถานที่บริเวณโดยรอบ","โปรดรอสักครู่...", BitmapFactory.decodeResource(getContext().getResources(), R.drawable.iconlandingpage) ));
+        shopList.addShop(new Shop("กำลังหาสถานที่บริเวณโดยรอบ", "โปรดรอสักครู่...", BitmapFactory.decodeResource(getContext().getResources(), R.drawable.iconlandingpage)));
 
-        if (shops != null){
+        getStationData();
+        if (shops != null) {
             setShop(shops);
         }
+
 
     }
 
@@ -67,6 +70,15 @@ public class OtherFragment extends Fragment {
         return view;
     }
 
+    public void getStationData() {
+        List<Shop> shops = new ArrayList<>();
+//        if()
+        shops.add(new Shop("ATM ธนาคารกสิกรไทย", "ตู้กดเงินอัตโนมัติ", BitmapFactory.decodeResource(getContext().getResources(), R.drawable.kbank)));
+        shops.add(new Shop("ATM ธนาคารกรุงศรี", "ตู้กดเงินอัตโนมัติ", BitmapFactory.decodeResource(getContext().getResources(), R.drawable.bay)));
+        shops.add(new Shop("ATM ธนาคารไทยพาณิชย์", "ตู้กดเงินอัตโนมัติ", BitmapFactory.decodeResource(getContext().getResources(), R.drawable.scb)));
+        shops.add(new Shop("ATM ธนาคารกรุงเทพ", "ตู้กดเงินอัตโนมัติ", BitmapFactory.decodeResource(getContext().getResources(), R.drawable.bkk)));
+        setShop(shops);
+    }
 
     public void setShop(List<Shop> shops) {
         this.shops = shops;
