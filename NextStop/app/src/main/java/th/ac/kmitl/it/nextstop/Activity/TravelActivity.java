@@ -304,7 +304,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
             } else if (binding.agreeButton == view) {
                 binding.modalNoti.setVisibility(View.GONE);
-                if (count >= 2) {
+                if (count >= 2 || route.length == 1) {
                     Intent intent = new Intent(TravelActivity.this, LandingActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
