@@ -26,8 +26,11 @@ public class ShopList {
     }
 
     public void addList(List<Shop> shops){
-        items.clear();
-        items.addAll(shops);
-        adapter = new ShopListViewAdapter(items.size());
+        if(shops.size() > 0){
+            items.clear();
+            items.addAll(shops);
+            adapter = new ShopListViewAdapter(items.size());
+        }
+
     }
 }

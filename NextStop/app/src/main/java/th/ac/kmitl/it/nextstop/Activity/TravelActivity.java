@@ -75,6 +75,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.modalCancelBackground.setOnClickListener(listener);
         binding.cancelYesButton.setOnClickListener(listener);
         binding.cancelNoButton.setOnClickListener(listener);
+        binding.demoNoti.setOnClickListener(listener);
         binding.doorOpen.setText(getDoorOpen());
 
         binding.imageStation.setImageResource(R.drawable.a1);
@@ -85,11 +86,10 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
                 Intent intent = new Intent(TravelActivity.this, DetailStationActivity.class);
                 intent.putExtra("station", routeList.items.get(position));
-                intent.putExtra("time",timeToArrive);
-                intent.putExtra("route",(route.length - 1));
-                intent.putExtra("doorOpen",getDoorOpen());
+                intent.putExtra("time", timeToArrive);
+                intent.putExtra("route", (route.length - 1));
+                intent.putExtra("doorOpen", getDoorOpen());
                 startActivity(intent);
-
             }
         });
 
@@ -241,7 +241,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
                     setRouteTravel(route);
                     updateArriveTime(time);
 
-                } else if (resultCode == RESULT_FIRST_USER){
+                } else if (resultCode == RESULT_FIRST_USER) {
                     int resultValue = resultData.getInt("notification");
                     showNotification(resultValue);
                 }
@@ -304,10 +304,18 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
             } else if (binding.agreeButton == view) {
                 binding.modalNoti.setVisibility(View.GONE);
+                if (count >= 2) {
+                    Intent intent = new Intent(TravelActivity.this, LandingActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
 
             } else if (binding.nextStationCard == view) {
                 Intent intent = new Intent(TravelActivity.this, DetailStationActivity.class);
                 intent.putExtra("station", binding.nextStationLabel.getText());
+                intent.putExtra("time",timeToArrive);
+                intent.putExtra("route",(route.length - 1));
+                intent.putExtra("doorOpen",getDoorOpen());
                 startActivity(intent);
 
             } else if (binding.cancelNoButton == view || binding.modalCancelBackground == view) {
@@ -316,6 +324,9 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
             } else if (binding.cancelYesButton == view) {
                 LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, pendingIntent);
                 finish();
+            } else if (binding.demoNoti == view) {
+                count++;
+                notificationArriveStation();
             }
         }
     };
@@ -327,7 +338,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void setNextStationDetail(String name) {
-        if(name != null){
+        if (name != null) {
             int imageResource = stationList.getImageResourceFormName(name);
             binding.imageStation.setImageResource(imageResource);
             binding.nextStationTitle.setText(name);
@@ -345,10 +356,10 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         return super.onKeyDown(keyCode, event);
     }
 
-    private String getDoorOpen(){
-        if(desName.equals("สุวรรณภูมิ") || desName.equals("มักกะสัน") || desName.equals("พญาไท")){
+    private String getDoorOpen() {
+        if (desName.equals("สุวรรณภูมิ") || desName.equals("มักกะสัน") || desName.equals("พญาไท")) {
             return "ประตูขบวนรถจะเปิดทางด้านขวา";
-        }else {
+        } else {
             return "ประตูขบวนรถจะเปิดทางด้านซ้าย";
         }
     }

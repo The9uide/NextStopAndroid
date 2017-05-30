@@ -36,6 +36,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/demoNoti"
                         android:layout_width="80.0dp"
                         android:layout_height="26.5dp"
                         android:layout_gravity="center"
