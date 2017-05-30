@@ -75,6 +75,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.modalCancelBackground.setOnClickListener(listener);
         binding.cancelYesButton.setOnClickListener(listener);
         binding.cancelNoButton.setOnClickListener(listener);
+        binding.doorOpen.setText(getDoorOpen());
 
         binding.imageStation.setImageResource(R.drawable.a1);
 
@@ -84,6 +85,9 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
                 Intent intent = new Intent(TravelActivity.this, DetailStationActivity.class);
                 intent.putExtra("station", routeList.items.get(position));
+                intent.putExtra("time",timeToArrive);
+                intent.putExtra("route",(route.length - 1));
+                intent.putExtra("doorOpen",getDoorOpen());
                 startActivity(intent);
 
             }
@@ -165,6 +169,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         } else {
             setNextStationDetail(route[0]);
         }
+        this.route = route;
 
         binding.subEstimateTime.setText("ถัดไปอีก " + (route.length - 1) + "ป้าย");
         routeList.updateRoute(routeListview);
@@ -340,4 +345,11 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         return super.onKeyDown(keyCode, event);
     }
 
+    private String getDoorOpen(){
+        if(desName.equals("สุวรรณภูมิ") || desName.equals("มักกะสัน") || desName.equals("พญาไท")){
+            return "ประตูขบวนรถจะเปิดทางด้านขวา";
+        }else {
+            return "ประตูขบวนรถจะเปิดทางด้านซ้าย";
+        }
+    }
 }

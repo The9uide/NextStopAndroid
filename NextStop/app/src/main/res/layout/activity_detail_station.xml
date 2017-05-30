@@ -38,8 +38,6 @@
                     android:src="@drawable/back_arrow" />
             </LinearLayout>
 
-
-
             <LinearLayout
 
                 android:layout_width="match_parent"
@@ -51,33 +49,33 @@
                     android:id="@+id/stationName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="มักกะสัน"
-                    android:textSize="24.0sp"
-                    android:textColor="@color/white"
                     android:layout_marginLeft="16.0dp"
-                    android:layout_marginTop="24.0dp"/>
+                    android:layout_marginTop="24.0dp"
+                    android:text="มักกะสัน"
+                    android:textColor="@color/white"
+                    android:textSize="24.0sp" />
 
                 <TextView
                     android:id="@+id/timeToArrive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="อีก 2 ป้าย (30 นาที)"
-                    android:textColor="@color/white"
-                    android:textSize="14.0sp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
-                    android:alpha="0.7"/>
+                    android:alpha="0.7"
+                    android:text="อีก 2 ป้าย (8 นาที)"
+                    android:textColor="@color/white"
+                    android:textSize="14.0sp" />
 
                 <TextView
                     android:id="@+id/doorOpen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ประตูรถจะเปิดทางด้านขวา"
-                    android:textColor="@color/white"
-                    android:textSize="14.0sp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
-                    android:alpha="0.7"/>
+                    android:alpha="0.7"
+                    android:text="ประตูรถจะเปิดทางด้านซ้าย"
+                    android:textColor="@color/white"
+                    android:textSize="14.0sp" />
             </LinearLayout>
 
         </RelativeLayout>

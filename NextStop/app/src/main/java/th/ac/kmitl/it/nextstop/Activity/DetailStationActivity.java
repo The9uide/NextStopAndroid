@@ -48,7 +48,7 @@ public class DetailStationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         stationName = intent.getStringExtra("station");
         stationList = StationList.getStations();
-        Log.e("getImageResource",stationName);
+        Log.e("getImageResource", stationName);
 
         station = stationList.getStationFormName(stationName);
 
@@ -57,6 +57,8 @@ public class DetailStationActivity extends AppCompatActivity {
         int imageResource = stationList.getImageResourceFormName(stationName);
         binding.stationImage.setImageResource(imageResource);
         binding.backButton.setOnClickListener(listener);
+        binding.timeToArrive.setText("อีก " + intent.getIntExtra("route", 1) + " ป้าย (" + intent.getIntExtra("time",10) + " นาที)");
+        binding.doorOpen.setText(intent.getStringExtra("doorOpen"));
 
         viewPager = binding.viewpager;
         createViewPager(viewPager);
@@ -112,10 +114,10 @@ public class DetailStationActivity extends AppCompatActivity {
         FoodFragment tab2 = new FoodFragment();
 
         Bundle bundle1 = new Bundle();
-        bundle1.putString("ll", station.getLatitude()+","+station.getLongitude());
+        bundle1.putString("ll", station.getLatitude() + "," + station.getLongitude());
 
         Bundle bundle2 = new Bundle();
-        bundle2.putString("ll", station.getLatitude()+","+station.getLongitude());
+        bundle2.putString("ll", station.getLatitude() + "," + station.getLongitude());
 
         tab1.setArguments(bundle1);
         tab2.setArguments(bundle2);
@@ -166,7 +168,7 @@ public class DetailStationActivity extends AppCompatActivity {
         }
     };
 
-    private void animateActionBar(){
+    private void animateActionBar() {
         ValueAnimator anim = ValueAnimator.ofInt(binding.actionImageBar.getMeasuredHeight(), (int) getResources().getDimension(R.dimen.row_route_height));
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -182,7 +184,8 @@ public class DetailStationActivity extends AppCompatActivity {
         anim.setDuration(500);
         anim.start();
     }
-    private void animateImage(){
+
+    private void animateImage() {
         final int imageHeight = binding.stationImage.getMeasuredHeight();
         final float nameMargin = getResources().getDimension(R.dimen.dp80) - getResources().getDimension(R.dimen.dp16);
 
@@ -196,8 +199,8 @@ public class DetailStationActivity extends AppCompatActivity {
                 binding.doorOpen.setAlpha(val);
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                double leftMargin =  getResources().getDimension(R.dimen.dp16) + nameMargin * (1-val);
-                lp.setMargins((int) leftMargin,(int) getResources().getDimension(R.dimen.dp24), 0, 0);
+                double leftMargin = getResources().getDimension(R.dimen.dp16) + nameMargin * (1 - val);
+                lp.setMargins((int) leftMargin, (int) getResources().getDimension(R.dimen.dp24), 0, 0);
 
                 binding.stationName.setLayoutParams(lp);
 
@@ -209,11 +212,9 @@ public class DetailStationActivity extends AppCompatActivity {
 
             }
         });
-        anim.addListener(new AnimatorListenerAdapter()
-        {
+        anim.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation)
-            {
+            public void onAnimationEnd(Animator animation) {
                 binding.stationImage.setVisibility(View.GONE);// done
             }
         });

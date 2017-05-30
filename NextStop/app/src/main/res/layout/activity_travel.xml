@@ -276,11 +276,12 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/doorOpen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:alpha="0.87"
-                    android:text="ประตูขบวนรถจะเปิดทางด้านขวา"
+                    android:text="ประตูขบวนรถจะเปิดทางด้านซ้าย"
                     android:textColor="@color/black"
                     android:textSize="14.0sp" />
 
