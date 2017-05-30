@@ -89,6 +89,7 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         Log.e("Response", "" + serverResponse);
         if (travelActivity != null) {
+            StationList.getStations().timeToArrive = resultTime;
             travelActivity.updateArriveTime(resultTime);
 
         } else if (reviewActivity != null) {

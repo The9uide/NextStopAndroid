@@ -71,7 +71,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         binding.routeListView.setFocusable(false);
         binding.closeButton.setOnClickListener(listener);
         binding.agreeButton.setOnClickListener(listener);
-        binding.imageStation.setOnClickListener(listener);
+        binding.nextStationCard.setOnClickListener(listener);
         binding.modalCancelBackground.setOnClickListener(listener);
         binding.cancelYesButton.setOnClickListener(listener);
         binding.cancelNoButton.setOnClickListener(listener);
@@ -91,10 +91,12 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
         setupServiceReceiver();
 
+
         stationList = StationList.getStations();
         departStation = stationList.getStationFormName(departName);
         destinationStation = stationList.getStationFormName(desName);
 
+        setTimeToArrive();
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -117,7 +119,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
 
         setListViewHeight();
         setRouteTravel(route);
-        setTimeToArrive();
+
     }
 
     private void setTimeToArrive() {
@@ -144,6 +146,7 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     public void updateArriveTime(int time) {
+        timeToArrive = time;
         binding.estimateTime.setText("ถึงสถานี" + desName + " ในอีก " + time + " นาที");
     }
 
@@ -241,37 +244,38 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
         });
     }
 
-//    public void notificationArriveStation() {
-//
-//        if (mBuilder == null && route.length == 2 || count == 1) {
-//            mBuilder = new NotificationCompat.Builder(this)
-//                    .setSmallIcon(R.drawable.iconnextstaion)
-//                    .setContentTitle("เตรียมตัวให้พร้อม!!!")
-//                    .setContentText("สถานีต่อไปคือสถานีปลายทาง");
-//            Log.e("Notification", "FIRST NOTI");
-//            showNotification(0);
-//            notifyNotification();
-//        } else if (route.length == 1 || count == 2) {
-//            mBuilder = new NotificationCompat.Builder(this)
-//                    .setSmallIcon(R.drawable.iconnextstaion)
-//                    .setContentTitle("ถึงสถานีปลายทางแล้ว!!!")
-//                    .setContentText("สถานีนี้คือสถานีปลายของท่าน");
-//            Log.e("Notification", "SECOND NOTI");
-//            showNotification(1);
-//            notifyNotification();
-//        }
-//    }
+    public void notificationArriveStation() {
 
-//    private void notifyNotification() {
-//        Intent resultIntent = new Intent(this, TravelActivity.class);
-//        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//        mBuilder.setContentIntent(resultPendingIntent);
-//        mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000});
-//
-//        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        mNotifyMgr.notify(001, mBuilder.build());
-//    }
+        if (mBuilder == null && route.length == 2 || count == 1) {
+            mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.iconnextstaion)
+                    .setContentTitle("เตรียมตัวให้พร้อม!!!")
+                    .setContentText("สถานีต่อไปคือสถานีปลายทาง");
+            Log.e("Notification", "FIRST NOTI");
+            showNotification(0);
+            notifyNotification();
+        } else if (route.length == 1 || count == 2) {
+            mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.iconnextstaion)
+                    .setContentTitle("ถึงสถานีปลายทางแล้ว!!!")
+                    .setContentText("สถานีนี้คือสถานีปลายของท่าน");
+            Log.e("Notification", "SECOND NOTI");
+            showNotification(1);
+            notifyNotification();
+        }
+    }
+
+    private void notifyNotification() {
+        Intent resultIntent = new Intent(this, TravelActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000});
+//        mBuilder.setLights(1,1,1);
+
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(001, mBuilder.build());
+    }
 
     private void showNotification(int i) {
         if (i == 0) {
@@ -292,10 +296,11 @@ public class TravelActivity extends AppCompatActivity implements GoogleApiClient
             if (binding.closeButton == view) {
                 binding.modalCancel.setVisibility(view.VISIBLE);
 
+
             } else if (binding.agreeButton == view) {
                 binding.modalNoti.setVisibility(View.GONE);
 
-            } else if (binding.imageStation == view) {
+            } else if (binding.nextStationCard == view) {
                 Intent intent = new Intent(TravelActivity.this, DetailStationActivity.class);
                 intent.putExtra("station", binding.nextStationLabel.getText());
                 startActivity(intent);

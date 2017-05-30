@@ -18,9 +18,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-import th.ac.kmitl.it.nextstop.Fragment.ShopFragment;
-import th.ac.kmitl.it.nextstop.Model.FoursquareAsyncTask;
+import java.io.IOException;
+import java.io.InputStream;
+
 import th.ac.kmitl.it.nextstop.Model.Station;
+import th.ac.kmitl.it.nextstop.Model.StationList;
 import th.ac.kmitl.it.nextstop.Model.StationManager;
 import th.ac.kmitl.it.nextstop.R;
 import th.ac.kmitl.it.nextstop.databinding.ActivityLandingBinding;
@@ -59,6 +61,9 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
 
         binding.yesButton.setOnClickListener(listener);
         binding.noButton.setOnClickListener(listener);
+
+        StationList.getStations().setUpdata(loadJSONFromAsset());
+
 
 //        FoursquareAsyncTask task = new FoursquareAsyncTask();
 //        task.execute(getString(R.string.foursquare_api));
@@ -134,4 +139,20 @@ public class LandingActivity extends AppCompatActivity implements GoogleApiClien
             }
         }
     };
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getAssets().open("stationlist.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
 }

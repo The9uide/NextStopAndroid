@@ -1,0 +1,60 @@
+{
+    "station": [
+        {
+            "name": "สุวรรณภูมิ",
+            "id": "A1",
+            "connection": "สนามบิน สุวรรณภูมิ",
+            "latitude": 13.698090,
+            "longitude": 100.752265
+        },
+        {
+            "name": "ลาดกระบัง",
+            "id": "A2",
+            "connection": "",
+            "latitude": 13.727669,
+            "longitude": 100.748717
+        },
+        {
+            "name": "บ้านทับช้าง",
+            "id": "A3",
+            "connection": "",
+            "latitude": 13.732827,
+            "longitude": 100.691467
+        },
+        {
+            "name": "หัวหมาก",
+            "id": "A4",
+            "connection": "",
+            "latitude": 13.737958,
+            "longitude": 100.645347
+        },
+        {
+            "name": "รามคำแหง",
+            "id": "A5",
+            "connection": "",
+            "latitude": 13.742959,
+            "longitude": 100.600257
+        },
+        {
+            "name": "มักกะสัน",
+            "id": "A6",
+            "connection": "MRT เพชรบุรี",
+            "latitude": 13.751017,
+            "longitude": 100.561346
+        },
+        {
+            "name": "ราชปรารภ",
+            "id": "A7",
+            "connection": "",
+            "latitude": 13.755133,
+            "longitude": 100.541826
+        },
+        {
+            "name": "พญาไท",
+            "id": "A8",
+            "connection": "BTS พญาไท",
+            "latitude": 13.756711,
+            "longitude": 100.534972
+        }
+    ]
+}

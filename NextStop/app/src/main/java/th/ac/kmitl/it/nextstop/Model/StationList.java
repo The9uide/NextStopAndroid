@@ -6,6 +6,12 @@ import android.databinding.ObservableList;
 import android.util.Log;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+
 import me.tatarka.bindingcollectionadapter2.BR;
 import me.tatarka.bindingcollectionadapter2.BindingListViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -42,16 +48,17 @@ public class StationList {
     public  int countNoti;
 
     protected StationList() {
-        items.add(new Station("สุวรรณภูมิ", "A1", "สนามบิน สุวรรณภูมิ", 13.698090, 100.752265));
-        items.add(new Station("ลาดกระบัง", "A2", null, 13.727669, 100.748717));
-        items.add(new Station("บ้านทับช้าง", "A3", null, 13.732827, 100.691467));
-        items.add(new Station("หัวหมาก", "A4", null, 13.737958, 100.645347));
-        items.add(new Station("รามคำแหง", "A5", null, 13.742959, 100.600257));
-        items.add(new Station("มักกะสัน", "A6", "MRT เพชรบุรี", 13.751017, 100.561346));
-        items.add(new Station("ราชปรารภ", "A7", null, 13.755133, 100.541826));
-        items.add(new Station("พญาไท", "A8", "BTS พญาไท", 13.756711, 100.534972));
 
-        adapter = new StationListViewAdapter(items.size());
+//        items.add(new Station("สุวรรณภูมิ", "A1", "สนามบิน สุวรรณภูมิ", 13.698090, 100.752265));
+//        items.add(new Station("ลาดกระบัง", "A2", null, 13.727669, 100.748717));
+//        items.add(new Station("บ้านทับช้าง", "A3", null, 13.732827, 100.691467));
+//        items.add(new Station("หัวหมาก", "A4", null, 13.737958, 100.645347));
+//        items.add(new Station("รามคำแหง", "A5", null, 13.742959, 100.600257));
+//        items.add(new Station("มักกะสัน", "A6", "MRT เพชรบุรี", 13.751017, 100.561346));
+//        items.add(new Station("ราชปรารภ", "A7", null, 13.755133, 100.541826));
+//        items.add(new Station("พญาไท", "A8", "BTS พญาไท", 13.756711, 100.534972));
+//
+//        adapter = new StationListViewAdapter(items.size());
     }
 
     public static StationList getStations() {
@@ -59,6 +66,26 @@ public class StationList {
             stations = new StationList();
         }
         return stations;
+    }
+
+    public void setUpdata(String json){
+        try {
+            JSONObject resultJson = new JSONObject(json);
+            JSONArray stationArray = resultJson.getJSONArray("station");
+            for(int index = 0; index < stationArray.length() ; index++){
+                JSONObject station = stationArray.getJSONObject(index);
+                String name = station.getString("name");
+                String id = station.getString("id");
+                String connection = station.getString("connection");
+                double latitude = station.getDouble("latitude");
+                double longitude = station.getDouble("longitude");
+                items.add(new Station(name, id, (connection.equals("") ? null:connection), latitude, longitude));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }finally {
+            adapter = new StationListViewAdapter(items.size());
+        }
     }
 
     public Station getStationFormIndex(int position) {
@@ -159,4 +186,5 @@ public class StationList {
         }
         return R.drawable.a1;
     }
+
 }

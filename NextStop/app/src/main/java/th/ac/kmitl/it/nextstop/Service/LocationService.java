@@ -60,7 +60,7 @@ public class LocationService extends IntentService {
             destinationStation = stationList.destinationStation;
 //            Log.e("Location in Service", departStation + " : "+ destinationStation);
             rec = stationList.locationReceiver;
-            int time = intent.getIntExtra("time",20);
+            int time = stationList.timeToArrive;
             try{
                 location.getLatitude();
                 location.getLongitude();
